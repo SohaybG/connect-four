@@ -5,61 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <link rel="stylesheet" href="style.css">
   
-  <title>Frontend Mentor | Connect Four game</title>
+  <title>Connect Four</title>
 </head>
 <body>
-
-  <!-- Main menu start -->
-
-   Play vs player
-   Game rules
-
-  <!-- Main menu end -->
-
-  <!-- Rules start -->
-
-  Rules
-
-  Objective
-
-  Be the first player to connect 4 of the same colored discs in a row (either 
-  vertically, horizontally, or diagonally).
-
-  How to play
-
-  Red goes first in the first game.
-  Players must alternate turns, and only one disc can be dropped in each turn. 
-  The game ends when there is a 4-in-a-row or a stalemate.
-  The starter of the previous game goes second on the next game.
-
-  <!-- Rules end -->
-
-  <!-- Ingame menu start -->
-
-  Pause
-
-  Continue game
-  Restart
-  Quit game
-
-  <!-- Ingame menu end -->
   
-  <!-- Game board start -->
+  <div class="board-buttons">
+    <button class="board-button" aria-label="Add piece to column 1"></button>
+    <button class="board-button" aria-label="Add piece to column 2"></button>
+    <button class="board-button" aria-label="Add piece to column 3"></button>
+    <button class="board-button" aria-label="Add piece to column 4"></button>
+    <button class="board-button" aria-label="Add piece to column 5"></button>
+    <button class="board-button" aria-label="Add piece to column 6"></button>
+    <button class="board-button" aria-label="Add piece to column 7"></button>
+  </div>
 
-  Menu
-  Restart
+  <div class="board-wrapper">
+    <div class="player__pieces">
+      <ul class="board__column">
+        <li class="board__piece board__piece--player-one"></li>
+        <li class="board__piece board__piece--player-one"></li>
+        <li class="board__piece board__piece--player-two"></li>
+      </ul>
+      <ul class="board__column"></ul>
+      <ul class="board__column"></ul>
+      <ul class="board__column">
+        <li class="board__piece board__piece--player-two"></li>
+        <li class="board__piece board__piece--player-one"></li>
+        <li class="board__piece board__piece--player-two"></li>
+        <!-- <li class="board__piece board__piece--player-two board__piece--preview"></li> -->
+      </ul>
+      <ul class="board__column"></ul>
+      <ul class="board__column"></ul>
+      <ul class="board__column"></ul>
+    </div>
 
-  Player 1
-  Player 2
-
-  Player 1's turn
-  Player 2's turn
-
-  Wins
-  Play again
-
-  <!-- Game board end -->
+    <ul class="board">
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+      <li class="board__slot"></li>
+    </ul>
+  </div>
 
 </body>
 </html>
