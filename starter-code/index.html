@@ -13,80 +13,72 @@
 <body>
   
   <div class="board-buttons">
-    <button class="board-button" aria-label="Add piece to column 1"></button>
-    <button class="board-button" aria-label="Add piece to column 2"></button>
-    <button class="board-button" aria-label="Add piece to column 3"></button>
-    <button class="board-button" aria-label="Add piece to column 4"></button>
-    <button class="board-button" aria-label="Add piece to column 5"></button>
-    <button class="board-button" aria-label="Add piece to column 6"></button>
-    <button class="board-button" aria-label="Add piece to column 7"></button>
+    <button class="board-button" data-column="1" aria-label="Add piece to column 1"></button>
+    <button class="board-button" data-column="2" aria-label="Add piece to column 2"></button>
+    <button class="board-button" data-column="3" aria-label="Add piece to column 3"></button>
+    <button class="board-button" data-column="4" aria-label="Add piece to column 4"></button>
+    <button class="board-button" data-column="5" aria-label="Add piece to column 5"></button>
+    <button class="board-button" data-column="6" aria-label="Add piece to column 6"></button>
+    <button class="board-button" data-column="7" aria-label="Add piece to column 7"></button>
   </div>
 
   <div class="board-wrapper">
-    <div class="player__pieces">
-      <ul class="board__column">
-        <li class="board__piece board__piece--player-one"></li>
-        <li class="board__piece board__piece--player-one"></li>
-        <li class="board__piece board__piece--player-two"></li>
-      </ul>
+    <div class="board">
       <ul class="board__column"></ul>
       <ul class="board__column"></ul>
-      <ul class="board__column">
-        <li class="board__piece board__piece--player-two"></li>
-        <li class="board__piece board__piece--player-one"></li>
-        <li class="board__piece board__piece--player-two"></li>
-        <!-- <li class="board__piece board__piece--player-two board__piece--preview"></li> -->
-      </ul>
+      <ul class="board__column"></ul>
+      <ul class="board__column"></ul>
       <ul class="board__column"></ul>
       <ul class="board__column"></ul>
       <ul class="board__column"></ul>
     </div>
 
-    <ul class="board">
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
-      <li class="board__slot"></li>
+    <ul class="board-background">
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
+      <li class="board-background__slot"></li>
     </ul>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
