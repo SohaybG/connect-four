@@ -55,7 +55,7 @@ const board = {
 //     columns: []
 // }
 
-// Winning test board
+// hasWon test board
 // const board = {
 //     pieces: [
 //         {
@@ -186,7 +186,7 @@ function getPiecesByColumn(column) {
 }
 
 function getPieceByCoordinates(column, row) {
-    return board.pieces.filter(piece => piece.column == column && piece.row == row);
+    return board.pieces.filter(piece => piece.column == column && piece.row == row)[0];
 }
 
 function getCurrentPlayerPieces() {
@@ -202,6 +202,13 @@ function sortBoardPieces() {
 }
 
 function finishPlayerTurn() {
+    if (checkForVictory()) {
+        console.log('WINNER IS :', game.currentPlayer);
+        document.querySelectorAll(`.board-button`).forEach(button => button.disabled = true);
+        
+        return;
+    }
+
     let currentPlayerIndex = players.indexOf(game.currentPlayer);
 
     if (currentPlayerIndex == players.length-1) {
@@ -217,55 +224,73 @@ function disableButtonByColumnNumber(column) {
 
 function checkForVictory() {
     let currentPlayerPieces = getCurrentPlayerPieces();
-    let winning = false;
+    let hasWon = false;
 
     for (let i = 0; i < currentPlayerPieces.length; i++) {
         const piece = currentPlayerPieces[i];
-        if (checkHorizontal(piece)) {
+
+        if (checkPiecesInAxis(piece, getNextHorizonalPieces)) {
             return true;
-        } else if (checkVertical(piece)) {
+        } else if (checkPiecesInAxis(piece, getNextVerticalPieces)) {
+            return true;
+        } else if (checkPiecesInAxis(piece, getNextDiagonalPieces)) {
             return true;
         }
     }
 
-    return winning;
+    return hasWon;
 }
 
-function checkHorizontal(referencePiece) {
-    let winning = true;
-    let nextPieces = [
+function checkPiecesInAxis(referencePiece, operation) {
+    let hasWon = true;
+    let nextPieces = operation(referencePiece);
+
+    for (let i = 0; i < nextPieces.length; i++) {
+        const nextPiece = nextPieces[i];
+
+        if (!nextPiece || (nextPiece.player != referencePiece.player)) {
+            hasWon = false;
+        }
+    }
+
+    if (hasWon) {
+        nextPieces.unshift(referencePiece)
+        hightlightWinningPieces(nextPieces);
+    }
+    
+    return hasWon;
+}
+
+function getNextHorizonalPieces(referencePiece) {
+    return [
         getPieceByCoordinates(referencePiece.column + 1, referencePiece.row),
         getPieceByCoordinates(referencePiece.column + 2, referencePiece.row),
-        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row),
-        getPieceByCoordinates(referencePiece.column + 4, referencePiece.row)
+        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row)
     ];
-    
-    for (let i = 0; i < nextPieces.length; i++) {
-        const nextPiece = nextPieces[i];
-
-        if (nextPiece.player != referencePiece.player) {
-            winning = false;
-        }
-    }
-    
-    return winning;
 }
-function checkVertical(referencePiece) {
-    let winning = true;
-    let nextPieces = [
+function getNextVerticalPieces(referencePiece) {
+    return [
         getPieceByCoordinates(referencePiece.column, referencePiece.row + 1),
         getPieceByCoordinates(referencePiece.column, referencePiece.row + 2),
-        getPieceByCoordinates(referencePiece.column, referencePiece.row + 3),
-        getPieceByCoordinates(referencePiece.column, referencePiece.row + 4)
+        getPieceByCoordinates(referencePiece.column, referencePiece.row + 3)
     ];
-    
-    for (let i = 0; i < nextPieces.length; i++) {
-        const nextPiece = nextPieces[i];
+}
+function getNextDiagonalPieces(referencePiece) {
+    return [
+        getPieceByCoordinates(referencePiece.column + 1, referencePiece.row + 1),
+        getPieceByCoordinates(referencePiece.column + 2, referencePiece.row + 2),
+        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row + 3)
+    ];
+}
 
-        if (nextPiece.player != referencePiece.player) {
-            winning = false;
-        }
-    }
-    
-    return winning;
+function hightlightWinningPieces(pieces) {
+    console.log(pieces);
+    pieces.forEach(piece => {
+        let pieceNode = getPieceHTMLNode(piece);
+        pieceNode.classList.add('board__piece--winner');
+    });
+}
+
+function getPieceHTMLNode(piece) {
+    return document.querySelector(`.board__column:nth-child(${piece.column}) .board__piece:nth-child(${piece.row})`);
 }
