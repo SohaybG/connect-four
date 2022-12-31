@@ -233,7 +233,9 @@ function checkForVictory() {
             return true;
         } else if (checkPiecesInAxis(piece, getNextVerticalPieces)) {
             return true;
-        } else if (checkPiecesInAxis(piece, getNextDiagonalPieces)) {
+        } else if (checkPiecesInAxis(piece, getNextUpDiagonalPieces)) {
+            return true;
+        } else if (checkPiecesInAxis(piece, getNextDownDiagonalPieces)) {
             return true;
         }
     }
@@ -275,7 +277,7 @@ function getNextVerticalPieces(referencePiece) {
         getPieceByCoordinates(referencePiece.column, referencePiece.row + 3)
     ];
 }
-function getNextDiagonalPieces(referencePiece) {
+function getNextUpDiagonalPieces(referencePiece) {
     return [
         getPieceByCoordinates(referencePiece.column + 1, referencePiece.row + 1),
         getPieceByCoordinates(referencePiece.column + 2, referencePiece.row + 2),
@@ -283,8 +285,15 @@ function getNextDiagonalPieces(referencePiece) {
     ];
 }
 
+function getNextDownDiagonalPieces(referencePiece) {
+    return [
+        getPieceByCoordinates(referencePiece.column + 1, referencePiece.row - 1),
+        getPieceByCoordinates(referencePiece.column + 2, referencePiece.row - 2),
+        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row - 3)
+    ];
+}
+
 function hightlightWinningPieces(pieces) {
-    console.log(pieces);
     pieces.forEach(piece => {
         let pieceNode = getPieceHTMLNode(piece);
         pieceNode.classList.add('board__piece--winner');
