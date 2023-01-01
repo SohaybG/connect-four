@@ -144,7 +144,7 @@ document.querySelectorAll('.board-button').forEach(button => {
     });
 });
 
-document.querySelector('.js-reset-game').addEventListener('click', restartGame);
+document.querySelectorAll('.js-reset-game').forEach(element => element.addEventListener('click', restartGame));
 
 function startGame() {
     startTurnTimer();
@@ -155,6 +155,7 @@ function restartGame() {
     clearBoardDisplay();
     document.querySelectorAll(`.board-button`).forEach(button => button.disabled = false);
     document.querySelector('.winner-window').classList.add('hidden');
+    document.querySelector('.tie-window').classList.add('hidden');
     document.querySelector('.current-turn-window').classList.remove('hidden');
 
     alternateStartingPlayer();
@@ -266,13 +267,27 @@ function finishPlayerTurn() {
         return;
     }
 
+    if (isBoardFull()) {
+        finishGame(true);
+        return;
+    }
+
     startNextPlayerTurn();
 }
 
-function finishGame() {
+function isBoardFull() {
+    return board.pieces.length == game.maxColumns * game.maxRows;
+}
+
+function finishGame(isATie = false) {
     document.querySelectorAll(`.board-button`).forEach(button => button.disabled = true);
-    document.querySelector('.winner-window').classList.remove('hidden');
     document.querySelector('.current-turn-window').classList.add('hidden');
+
+    if (isATie) {
+        document.querySelector('.tie-window').classList.remove('hidden');
+    } else {
+        document.querySelector('.winner-window').classList.remove('hidden');
+    }
 }
 
 function startNextPlayerTurn() {

@@ -164,7 +164,7 @@ button {
     background-color: transparent;
 }
 
-.winner-window, .current-turn-window {
+.winner-window, .current-turn-window, .tie-window {
     width: fit-content;
     margin-top: -2.625rem;
     margin-left: auto;
@@ -176,17 +176,17 @@ button {
     z-index: 1;
     border-radius: 1.25rem;
 }
-.winner-window__text, .current-turn-window__text {
+.winner-window__text, .current-turn-window__text, .tie-window__text {
     margin: 0;
     font-weight: 700;
     line-height: 1.28;
     text-transform: uppercase;
 }
-.winner-window__text strong, .current-turn-window__text strong {
+.winner-window__text strong, .current-turn-window__text strong, .tie-window strong {
     font-size: 3.5em;
     line-height: 1.28;
 }
-.winner-window {
+.winner-window, .tie-window {
     padding: 1.125rem 4.625rem;
     background-color: #FFF;
 }
