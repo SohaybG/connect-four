@@ -1,6 +1,5 @@
 const board = {
-    pieces: [],
-    columns: []
+    pieces: []
 };
 
 // Ongoing test board
@@ -124,13 +123,19 @@ const board = {
 
 
 const players = ['player_one', 'player_two'];
+const playerAliases = {
+    player_one: 'Player 1',
+    player_two: 'Player 2'
+}
 const game = {
     currentPlayer: 'player_one',
     maxColumns: 7,
-    maxRows: 6
+    maxRows: 6,
+    timePerTurn: 30
 }
 
 generatePiecesFromBoard();
+startGame();
 
 document.querySelectorAll('.board-button').forEach(button => {
     button.addEventListener('click', function() {
@@ -138,6 +143,58 @@ document.querySelectorAll('.board-button').forEach(button => {
         addPiece(column);
     });
 });
+
+document.querySelector('.js-reset-game').addEventListener('click', restartGame);
+
+function startGame() {
+    startTurnTimer();
+}
+
+function restartGame() {
+    clearBoardData();
+    clearBoardDisplay();
+    document.querySelectorAll(`.board-button`).forEach(button => button.disabled = false);
+    document.querySelector('.winner-window').classList.add('hidden');
+    document.querySelector('.current-turn-window').classList.remove('hidden');
+
+    alternateStartingPlayer();
+    startGame();
+}
+
+function clearBoardDisplay() {
+    document.querySelectorAll('.board__piece').forEach(piece => piece.parentNode.removeChild(piece));
+}
+
+function clearBoardData() {
+    board.pieces = [];
+}
+
+function alternateStartingPlayer() {
+    players.push(players.splice(0, 1)[0]);
+    game.currentPlayer = players[0];
+    updatePlayerCSSColor();
+    refreshPlayerAliasDisplays();
+}
+
+function incrementTimer() {
+    game.remainingTurnTime--;
+
+    if (game.remainingTurnTime < 0) {
+        finishPlayerTurn();
+    } else {
+        updateRemainingTimeDisplay();
+    }
+}
+
+function startTurnTimer() {
+    game.remainingTurnTime = game.timePerTurn;
+    updateRemainingTimeDisplay();
+    game.turnTimerInterval = setInterval(incrementTimer, 1000);
+}
+
+function updateRemainingTimeDisplay() {
+    document.querySelector('.current-turn-timer').textContent = `${game.remainingTurnTime}s`;
+}
 
 function generatePiecesFromBoard() {
     sortBoardPieces();
@@ -202,20 +259,45 @@ function sortBoardPieces() {
 }
 
 function finishPlayerTurn() {
+    clearInterval(game.turnTimerInterval);
+    
     if (checkForVictory()) {
-        console.log('WINNER IS :', game.currentPlayer);
-        document.querySelectorAll(`.board-button`).forEach(button => button.disabled = true);
-        
+        finishGame();
         return;
     }
 
+    startNextPlayerTurn();
+}
+
+function finishGame() {
+    document.querySelectorAll(`.board-button`).forEach(button => button.disabled = true);
+    document.querySelector('.winner-window').classList.remove('hidden');
+    document.querySelector('.current-turn-window').classList.add('hidden');
+}
+
+function startNextPlayerTurn() {
     let currentPlayerIndex = players.indexOf(game.currentPlayer);
+    let nextPlayer;
 
     if (currentPlayerIndex == players.length-1) {
-        game.currentPlayer = players[0];
+        nextPlayer = players[0];
     } else {
-        game.currentPlayer = players[currentPlayerIndex+1];
+        nextPlayer = players[currentPlayerIndex+1];
     }
+
+    game.currentPlayer = nextPlayer;
+    updatePlayerCSSColor();
+    refreshPlayerAliasDisplays();
+    startTurnTimer();
+}
+
+function updatePlayerCSSColor(player = game.currentPlayer) {
+    document.querySelector('body').style.setProperty('--player-color', `var(--${player}-color)`);
+}
+
+function refreshPlayerAliasDisplays(player = game.currentPlayer) {
+    let nameNodes = document.querySelectorAll('[data-update-player-alias]');
+    nameNodes.forEach(node => node.textContent = playerAliases[game.currentPlayer]);
 }
 
 function disableButtonByColumnNumber(column) {
