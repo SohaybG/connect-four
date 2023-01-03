@@ -208,18 +208,6 @@ button {
 .column-marker {
     fill: var(--player-color);
 }
-.board-button svg {
-    width: 32px;
-    height: 26px;
-    margin-top: 3px;
-    transition: 300ms ease-in-out;
-    animation-name: up-and-down;
-    animation-duration: .7s;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    opacity: 0;
-}
 .board-button {
     position: relative;
     display: flex;
@@ -229,52 +217,63 @@ button {
     height: 76px;
     z-index: 0;
 }
-.board-button::after {
+.board-button svg, .board-button::before, .board-button::after {
+    opacity: 0;
+    transition: 300ms ease-in-out;
+}
+.board-button svg {
+    width: 32px;
+    height: 26px;
+    margin-top: 3px;
+    animation-name: up-and-down;
+    animation-duration: .7s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+.board-button::before {
     content: '';
     position: absolute;
     z-index: -1;
-    background-color: rgba(255, 255, 255, .6);
+    background-color: rgba(255, 255, 255, .18);
     width: 64px;
     height: 64px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    transition: 300ms ease-in-out;
-    opacity: 0;
     border-radius: 50%;
 }
+.board-button:hover:before,
+.board-button:focus:before,
+.board-button:active:before, 
 .board-button:hover svg,
 .board-button:focus svg,
-.board-button:active svg {
-    opacity: 1;
-}
+.board-button:active svg,
 .board-button:hover:after,
 .board-button:focus:after,
 .board-button:active:after {
-    opacity: .3;
+    opacity: 1;
 }
+
 .board-button:disabled {
     cursor: not-allowed;
 }
-.board-button:disabled:after {
+.board-button:disabled svg {
+    animation-name: none;
+}
+.board-button:disabled:before {
     border: 3px solid #000;
 }
-.board-button:disabled:hover:after,
-.board-button:disabled:focus:after,
-.board-button:disabled:active:after {
-    opacity: 1;
+.board-button:disabled:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: calc(100% - 14px);
+    height: 3px;
+    background: #000;
 }
-/* .board-button:disabled:before {
-    content: 'Full';
-    background: none;
-    width: auto;
-    height: auto;
-    animation-name: none;
-    color: #000000;
-    font-weight: 700;
-    font-size: 1.125rem;
-    text-transform: uppercase;
-} */
 
 @keyframes up-and-down {
     0% {
