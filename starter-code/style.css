@@ -14,10 +14,16 @@
 body {
     --color-one: #7945FF;
     --color-two: #5C2DD5;
+    --color-three: #FD6687;
+    --color-four: #FFCE67;
     --background-color: var(--color-one);
-    --player_one-color: #FD6687;
-    --player_two-color: #FFCE67;
+    --player_one-color: var(--color-three);
+    --player_two-color: var(--color-four);
     --player-color: var(--player_one-color);
+    --container-width: 1046px;
+    --box-shadow-color: #000000;
+    --bottom-shadow: 0px 10px 0px var(--box-shadow-color);
+    --border: 3px solid #000000;
     font-family: 'SpaceGrotesk', sans-serif;
     font-weight: 500;
     margin: 0;
@@ -33,6 +39,12 @@ button {
     background-color: transparent;
     cursor: pointer;
 }
+.container {
+    max-width: var(--container-width);
+    width: calc(100% - 30px);
+    margin-left: auto;
+    margin-right: auto;
+}
 .hidden {
     display: none !important;
 }
@@ -46,6 +58,73 @@ button {
     font-weight: 700;
     line-height: 1.25;
     text-transform: uppercase;
+    transition: 300ms ease-in-out;
+}
+.btn:hover, .btn:focus, .btn:active {
+    background-color: var(--color-three);
+}
+
+
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: var(--color-two);
+}
+.menu__window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 480px;
+    max-height: calc(100% - 30px);
+    width: calc(100% - 30px);
+    padding: 3.125rem 2.5rem 3.75rem;
+    border: var(--border);
+    border-radius: 40px;
+    box-shadow: var(--bottom-shadow);
+}
+.menu__button {
+    display: block;
+    width: 100%;
+    padding: .83em;
+    background-color: #FFF;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: var(--border);
+    box-shadow: var(--bottom-shadow);
+    border-radius: 20px;
+    transition: 300ms ease-in-out;
+    box-shadow: 0px 10px 0px var(--box-shadow-color);
+}
+.menu__button:not(:last-child) {
+    margin-bottom: 1.875rem;
+}
+.menu__button:hover, .menu__button:focus, .menu__button:active {
+    --box-shadow-color: var(--color-two);
+    border-color: var(--color-two);
+}
+.start-menu__window {
+    padding-top: 4.375rem;
+    background-color: var(--color-one);
+}
+.start-menu__logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5rem;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 632px;
+    margin-top: 3.25rem;
 }
 .board, .board-background {
     display: grid;
@@ -60,9 +139,9 @@ button {
     padding: 1.25rem;
     padding-bottom: 3.75rem;
     background-color: #FFFFFF;
-    border: 3px solid #000000;
+    border: var(--border);
     border-radius: 40px;
-    box-shadow: 0px 10px 0px #000000;
+    box-shadow: var(--bottom-shadow);
     /* position: relative;
     z-index: 0; */
 }
@@ -81,9 +160,6 @@ button {
 .something {
     display: flex;
     align-items: center;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
 }
 .board-wrapper {
     position: relative;
@@ -96,7 +172,7 @@ button {
     height: 64px;
     background-color: var(--background-color);
     border-radius: 50%;
-    border: 3px solid #000000;
+    border: var(--border);
     box-shadow: inset 0 10px #000000;
 }
 .board {
@@ -178,8 +254,8 @@ button {
     margin-top: -2.625rem;
     margin-left: auto;
     margin-right: auto;
-    border: 3px solid #000000;
-    box-shadow: 0px 10px 0px #000000;
+    border: var(--border);
+    box-shadow: var(--bottom-shadow);
     text-align: center;
     border-radius: 1.25rem;
     font-weight: 700;
@@ -238,7 +314,6 @@ button {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin-top: 60px;
 }
 .column-marker {
     fill: var(--player-color);

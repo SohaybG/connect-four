@@ -20,7 +20,6 @@ const game = {
 }
 
 generatePiecesFromBoard();
-startGame();
 
 document.querySelectorAll('.board-button').forEach(button => {
     button.addEventListener('click', function() {
@@ -30,9 +29,19 @@ document.querySelectorAll('.board-button').forEach(button => {
 });
 
 document.querySelectorAll('.js-reset-game').forEach(element => element.addEventListener('click', restartGame));
+document.querySelectorAll('.js-start-game').forEach(element => element.addEventListener('click', startGame));
 
 function startGame() {
+    dismissMenu('#start_menu');
     startTurnTimer();
+}
+
+function dismissMenu(selector) {
+    let menu = document.querySelector(selector);
+    
+    if (menu) {
+        menu.classList.add('hidden');
+    }
 }
 
 function restartGame() {
