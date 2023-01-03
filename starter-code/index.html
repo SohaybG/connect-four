@@ -36,77 +36,95 @@
       </button>
     </div>
 
-    <div class="board-wrapper">
-      <div class="board">
-        <ul class="board__column"></ul>
-        <ul class="board__column"></ul>
-        <ul class="board__column"></ul>
-        <ul class="board__column"></ul>
-        <ul class="board__column"></ul>
-        <ul class="board__column"></ul>
-        <ul class="board__column"></ul>
+    <div class="something">
+      <div class="game-info-window player-score-window player-score-window--player_one">
+        <svg class="player-avatar player-avatar--player_one" width="54px" height="59px" viewBox="0 0 54 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>player-one</title><g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="player-one"><circle id="Oval-Copy-21" fill="#000000" cx="27" cy="27" r="27"></circle><circle id="Oval-Copy-40" fill="#000000" cx="27" cy="32" r="27"></circle><circle id="Oval-Copy-11" class="player-avatar-face"  fill="#FD6687" cx="27" cy="27" r="24"></circle><g id="Group-8" transform="translate(19.000000, 17.000000)" stroke="#000000" stroke-width="3"><path d="M6,26.75 C12.627417,26.75 18,21.377417 18,14.75 C18,8.122583 12.627417,2.75 6,2.75" id="Oval-Copy-11" transform="translate(12.000000, 14.750000) rotate(90.000000) translate(-12.000000, -14.750000) "></path><g id="Group-7" transform="translate(9.750000, 0.000000)"><line x1="0.5" y1="0" x2="0.5" y2="5.9844035" id="Path"></line><line x1="10.5" y1="0" x2="10.5" y2="5.9844035" id="Path-Copy"></line></g></g></g></g></svg>
+        <p class="game-info-window__text">
+          <span data-player-one-alias>Player 1</span><br> 
+          <strong class="player-score" aria-label="Score">0</strong>
+        </p>
+      </div>
+      
+      <div class="game-info-window player-score-window player-score-window--player_two">
+        <svg class="player-avatar player-avatar--player_two" width="54px" height="59px" viewBox="0 0 54 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>player-one</title><g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="player-one"><circle id="Oval-Copy-21" fill="#000000" cx="27" cy="27" r="27"></circle><circle id="Oval-Copy-40" fill="#000000" cx="27" cy="32" r="27"></circle><circle id="Oval-Copy-11" class="player-avatar-face"  fill="#FD6687" cx="27" cy="27" r="24"></circle><g id="Group-8" transform="translate(19.000000, 17.000000)" stroke="#000000" stroke-width="3"><path d="M6,26.75 C12.627417,26.75 18,21.377417 18,14.75 C18,8.122583 12.627417,2.75 6,2.75" id="Oval-Copy-11" transform="translate(12.000000, 14.750000) rotate(90.000000) translate(-12.000000, -14.750000) "></path><g id="Group-7" transform="translate(9.750000, 0.000000)"><line x1="0.5" y1="0" x2="0.5" y2="5.9844035" id="Path"></line><line x1="10.5" y1="0" x2="10.5" y2="5.9844035" id="Path-Copy"></line></g></g></g></g></svg>
+        <p class="game-info-window__text">
+          <span data-player-two-alias>Player 2</span><br> 
+          <strong class="player-score" aria-label="Score">0</strong>
+        </p>
       </div>
 
-      <ul class="board-background">
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-        <li class="board-background__slot"></li>
-      </ul>
+      <div class="board-wrapper">
+        <div class="board">
+          <ul class="board__column"></ul>
+          <ul class="board__column"></ul>
+          <ul class="board__column"></ul>
+          <ul class="board__column"></ul>
+          <ul class="board__column"></ul>
+          <ul class="board__column"></ul>
+          <ul class="board__column"></ul>
+        </div>
+
+        <ul class="board-background">
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+          <li class="board-background__slot"></li>
+        </ul>
+      </div>
     </div>
       
-    <div class="current-turn-window">
-      <p class="current-turn-window__text">
+    <div class="game-info-window current-turn-window">
+      <p class="game-info-window__text current-turn-window__text">
         <span data-update-player-alias>Player 1</span>'s turn<br>
         <strong class="current-turn-timer"></strong>
       </p>
     </div>
       
-    <div class="winner-window hidden">
-      <p class="winner-window__text"><span data-update-player-alias>Player 1</span><br> <strong>wins</strong></p>
+    <div class="game-info-window winner-window hidden">
+      <p class="game-info-window__text winner-window__text"><span data-update-player-alias>Player 1</span><br> <strong>wins</strong></p>
       <button class="btn js-reset-game">Play again</button>
     </div>
 
-    <div class="tie-window hidden">
-      <p class="tie-window__text"><strong>Tie</strong></p>
+    <div class="game-info-window tie-window hidden">
+      <p class="game-info-window__text tie-window__text"><strong>Tie</strong></p>
       <button class="btn js-reset-game">Play again</button>
     </div>
   </main>

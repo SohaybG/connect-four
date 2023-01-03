@@ -8,6 +8,10 @@ const playerAliases = {
     player_one: 'Player 1',
     player_two: 'Player 2'
 }
+const playerScores = {
+    player_one: 0,
+    player_two: 0
+}
 const game = {
     currentPlayer: 'player_one',
     maxColumns: 7,
@@ -167,6 +171,8 @@ function finishGame(isATie = false) {
     if (isATie) {
         document.querySelector('.tie-window').classList.remove('hidden');
     } else {
+        playerScores[game.currentPlayer]++;
+        document.querySelector(`.player-score-window--${game.currentPlayer} .player-score`).textContent = playerScores[game.currentPlayer];
         document.querySelector('.winner-window').classList.remove('hidden');
     }
 }

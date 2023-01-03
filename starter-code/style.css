@@ -15,8 +15,8 @@ body {
     --color-one: #7945FF;
     --color-two: #5C2DD5;
     --background-color: var(--color-one);
-    --player_one-color: #FFCE67;
-    --player_two-color: #FD6687;
+    --player_one-color: #FD6687;
+    --player_two-color: #FFCE67;
     --player-color: var(--player_one-color);
     font-family: 'SpaceGrotesk', sans-serif;
     font-weight: 500;
@@ -78,6 +78,13 @@ button {
     border-radius: 3.75rem 3.75rem 0 0;
     z-index: -1;
 } */
+.something {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
 .board-wrapper {
     position: relative;
     width: fit-content;
@@ -118,10 +125,10 @@ button {
     background-color: var(--player-color, lightgrey);
 }
 .board__piece--player_one {
-    --player-color: #FFCE67;
+    --player-color: var(--player_one-color);
 }
 .board__piece--player_two {
-    --player-color: #FD6687;
+    --player-color: var(--player_two-color);
 }
 .board__piece--preview {
     --offset: 6px;
@@ -164,7 +171,9 @@ button {
     background-color: transparent;
 }
 
-.winner-window, .current-turn-window, .tie-window {
+.game-info-window {
+    position: relative;
+    z-index: 1;
     width: fit-content;
     margin-top: -2.625rem;
     margin-left: auto;
@@ -172,17 +181,15 @@ button {
     border: 3px solid #000000;
     box-shadow: 0px 10px 0px #000000;
     text-align: center;
-    position: relative;
-    z-index: 1;
     border-radius: 1.25rem;
-}
-.winner-window__text, .current-turn-window__text, .tie-window__text {
-    margin: 0;
     font-weight: 700;
     line-height: 1.28;
     text-transform: uppercase;
 }
-.winner-window__text strong, .current-turn-window__text strong, .tie-window strong {
+.game-info-window__text {
+    margin: 0;
+}
+.game-info-window strong {
     font-size: 3.5em;
     line-height: 1.28;
 }
@@ -196,6 +203,34 @@ button {
 }
 .current-turn-timer {
     text-transform: none;
+}
+.player-score-window {
+    margin: 0;
+    background-color: #FFF;
+    padding: 0 1.75rem 1.125rem;
+    font-size: 1.25rem;
+}
+.player-score-window strong {
+    font-size: 2.8em;
+}
+.player-score-window--player_one {
+    --player-color: var(--player_one-color);
+    margin-right: 3.5rem;
+}
+.player-score-window--player_two {
+    --player-color: var(--player_two-color);
+    margin-left: 3.5rem;
+    order: 1;
+}
+.player-avatar {
+    margin-top: -30px;
+    margin-bottom: .875rem;
+}
+.player-avatar--player_two {
+    transform: scaleX(-1);
+}
+.player-avatar-face {
+    fill: var(--player-color);
 }
 
 .board-buttons {
