@@ -28,32 +28,53 @@ document.querySelectorAll('.board-button').forEach(button => {
     });
 });
 
-document.querySelectorAll('.js-reset-game').forEach(element => element.addEventListener('click', restartGame));
+document.querySelectorAll('.js-reset-game').forEach(element => element.addEventListener('click', resetGame));
+document.querySelectorAll('.js-start-next-game').forEach(element => element.addEventListener('click', startNextGame));
 document.querySelectorAll('.js-start-game').forEach(element => element.addEventListener('click', startGame));
 
+document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
+    dismissMenu.call(this);
+}));
+
 function startGame() {
-    dismissMenu('#start_menu');
     startTurnTimer();
 }
+function continueLastGame() {
+    generatePiecesFromBoard();
+    startTurnTimer();
+}
+function startNextGame() {
+    resetGameDataAndUI();
+    alternateStartingPlayer();
+    startGame();
+}
+function resetGame() {
+    resetGameDataAndUI();
+    startGame();
+}
 
-function dismissMenu(selector) {
-    let menu = document.querySelector(selector);
+function dismissMenu(selector = false) {
+    let menu;
+
+    if (selector) {
+        menu = document.querySelector(selector);
+    } else if (this && this.nodeType) {
+        menu = this.closest('.menu');
+    }
     
     if (menu) {
         menu.classList.add('hidden');
     }
 }
 
-function restartGame() {
+function resetGameDataAndUI() {
+    clearInterval(game.turnTimerInterval);
     clearBoardData();
     clearBoardDisplay();
     document.querySelectorAll(`.board-button`).forEach(button => button.disabled = false);
     document.querySelector('.winner-window').classList.add('hidden');
     document.querySelector('.tie-window').classList.add('hidden');
     document.querySelector('.current-turn-window').classList.remove('hidden');
-
-    alternateStartingPlayer();
-    startGame();
 }
 
 function clearBoardDisplay() {

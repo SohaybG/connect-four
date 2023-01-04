@@ -92,14 +92,14 @@ button {
     width: 100%;
     padding: .83em;
     background-color: #FFF;
+    border: var(--border);
+    border-radius: 20px;
+    box-shadow: 0px 10px 0px var(--box-shadow-color);
+    transition: 300ms ease-in-out;
     font-size: 1.5rem;
     font-weight: 700;
     text-transform: uppercase;
-    border: var(--border);
-    box-shadow: var(--bottom-shadow);
-    border-radius: 20px;
-    transition: 300ms ease-in-out;
-    box-shadow: 0px 10px 0px var(--box-shadow-color);
+    text-align: left;
 }
 .menu__button:not(:last-child) {
     margin-bottom: 1.875rem;
@@ -107,6 +107,12 @@ button {
 .menu__button:hover, .menu__button:focus, .menu__button:active {
     --box-shadow-color: var(--color-two);
     border-color: var(--color-two);
+}
+.menu__button--primary {
+    background-color: var(--color-four);
+}
+.menu__button--secondary {
+    background-color: var(--color-three);
 }
 .start-menu__window {
     padding-top: 4.375rem;
@@ -120,11 +126,15 @@ button {
 }
 
 .header__container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
     align-items: center;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
     max-width: 632px;
     margin-top: 3.25rem;
+}
+.header__right {
+    margin-left: auto;
 }
 .board, .board-background {
     display: grid;

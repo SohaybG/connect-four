@@ -13,9 +13,15 @@
 <body>
   <header>
     <div class="header__container container">
-      <button class="btn">Menu</button>
+      <div class="header__left">
+        <button class="btn">Menu</button>
+      </div>
+
       <img class="logo" src="./assets/images/logo.svg" alt="Game logo">
-      <button class="btn js-reset-game">Restart</button>
+      
+      <div class="header__right">
+        <button class="btn js-reset-game">Restart</button>
+      </div>
     </div>
   </header>
   
@@ -24,7 +30,7 @@
     <section id="start_menu" class="menu start-menu">
       <div class="menu__window start-menu__window">
         <img class="start-menu__logo logo" src="./assets/images/logo.svg" alt="Game logo">
-        <button class="menu__button js-start-game">Play vs player</button>
+        <button class="menu__button menu__button--primary js-start-game js-dismiss-parent-menu">Play vs player</button>
         <button class="menu__button">Game rules</button>
       </div>
     </section>
@@ -138,12 +144,12 @@
         
       <div class="game-info-window winner-window hidden">
         <p class="game-info-window__text winner-window__text"><span data-update-player-alias>Player 1</span><br> <strong>wins</strong></p>
-        <button class="btn js-reset-game">Play again</button>
+        <button class="btn js-start-next-game">Play again</button>
       </div>
 
       <div class="game-info-window tie-window hidden">
         <p class="game-info-window__text tie-window__text"><strong>Tie</strong></p>
-        <button class="btn js-reset-game">Play again</button>
+        <button class="btn js-start-next-game">Play again</button>
       </div>
     </div>
   </main>
