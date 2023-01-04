@@ -28,10 +28,26 @@
   <main>
     
     <section id="start_menu" class="menu start-menu">
-      <div class="menu__window start-menu__window">
+      <div id="start_menu_window" class="menu__window start-menu__window">
         <img class="start-menu__logo logo" src="./assets/images/logo.svg" alt="Game logo">
         <button class="menu__button menu__button--primary js-start-game js-dismiss-parent-menu">Play vs player</button>
         <button class="menu__button">Game rules</button>
+      </div>
+
+      <div id="rules_menu_window" class="menu__window rules-menu__window">
+        <h2 class="menu__title rules-menu">Rules</h2>
+        
+        <h3>Objective</h3>
+        <p>Be the first player to connect 4 of the same colored discs in a row (either vertically, horizontally, or diagonally).</p>
+
+        <h3>How to play</h3>
+        <ol>
+          <li>Red goes first in the first game.</li>
+          <li>Players must alternate turns, and only one disc can be dropped in each turn.</li>
+          <li>The game ends when there is a 4-in-a-row or a stalemate.</li>
+          <li>The starter of the previous game goes second on the next game.</li>
+        </ol>
+        <button class="menu__check-dismiss-btn" aria-label="Close rules"></button>
       </div>
     </section>
 

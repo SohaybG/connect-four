@@ -21,18 +21,53 @@ body {
     --player_two-color: var(--color-four);
     --player-color: var(--player_one-color);
     --container-width: 1046px;
-    --box-shadow-color: #000000;
-    --bottom-shadow: 0px 10px 0px var(--box-shadow-color);
+    --shadow-color: #000000;
+    --bottom-shadow: 0px 10px 0px var(--shadow-color);
     --border: 3px solid #000000;
-    font-family: 'SpaceGrotesk', sans-serif;
-    font-weight: 500;
     margin: 0;
     background-color: var(--background-color);
+    color: #575757;
+    font-family: 'SpaceGrotesk', sans-serif;
+    font-weight: 500;
+    line-height: 1.3125;
 }
-ul {
+h2:first-child, .h2:first-child,
+h3:first-child, .h3:first-child,
+p:first-child, li:first-child {
+    margin-top: 0;
+}
+h2:last-child, .h2:last-child,
+h3:last-child, .h3:last-child,
+p:last-child, li:last-child {
+    margin-bottom: 0;
+}
+h2, .h2,
+h3, .h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+h2, .h2 {
+    margin-bottom: .53em;
+    color: #000;
+    font-size: 3.5em;
+    text-align: center;
+}
+h3, .h3 {
+    margin-top: 1.5em;
+    margin-bottom: .8em;
+    color: var(--color-one);
+    font-size: 1.25em;
+}
+p {
+    margin-bottom: 1.3125em;
+}
+ul, ol {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+li {
+    margin-bottom: .625em;
 }
 button {
     border: none;
@@ -83,6 +118,7 @@ button {
     max-height: calc(100% - 30px);
     width: calc(100% - 30px);
     padding: 3.125rem 2.5rem 3.75rem;
+    background-color: var(--color-one);
     border: var(--border);
     border-radius: 40px;
     box-shadow: var(--bottom-shadow);
@@ -94,7 +130,7 @@ button {
     background-color: #FFF;
     border: var(--border);
     border-radius: 20px;
-    box-shadow: 0px 10px 0px var(--box-shadow-color);
+    box-shadow: 0px 10px 0px var(--shadow-color);
     transition: 300ms ease-in-out;
     font-size: 1.5rem;
     font-weight: 700;
@@ -105,7 +141,7 @@ button {
     margin-bottom: 1.875rem;
 }
 .menu__button:hover, .menu__button:focus, .menu__button:active {
-    --box-shadow-color: var(--color-two);
+    --shadow-color: var(--color-two);
     border-color: var(--color-two);
 }
 .menu__button--primary {
@@ -114,15 +150,47 @@ button {
 .menu__button--secondary {
     background-color: var(--color-three);
 }
+.menu__check-dismiss-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 64px;
+    height: 64px;
+    background: #FD6687;
+    border: 3px solid #000;
+    border-radius: 50%;
+    box-shadow: 0px 5px 0px var(--shadow-color);
+}
+.menu__check-dismiss-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.875rem;
+    height: 1.25rem;
+    background-image: url(./assets/images/checkmark.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.menu__check-dismiss-btn:hover, .menu__check-dismiss-btn:focus, .menu__check-dismiss-btn:active {
+    --shadow-color: var(--color-two);
+    border-color: var(--color-two);
+}
 .start-menu__window {
     padding-top: 4.375rem;
-    background-color: var(--color-one);
 }
 .start-menu__logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5rem;
+}
+.rules-menu__window {
+    background-color: #FFF;
+    padding: 1.875rem 2.125rem 3.375rem;
 }
 
 .header__container {
