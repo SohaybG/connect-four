@@ -14,7 +14,7 @@
   <header>
     <div class="header__container container">
       <div class="header__left">
-        <button class="btn">Menu</button>
+        <a href="#pause_menu" class="btn js-switch-menu js-pause-game">Menu</a>
       </div>
 
       <img class="logo" src="./assets/images/logo.svg" alt="Game logo">
@@ -27,15 +27,15 @@
   
   <main>
     
-    <section id="start_menu" class="menu start-menu">
-      <div id="start_menu_window" class="menu__window start-menu__window">
+    <section class="menu-backdrop" data-type="start_menu">
+      <div id="start_menu" class="menu menu--active start-menu">
         <img class="start-menu__logo logo" src="./assets/images/logo.svg" alt="Game logo">
         <button class="menu__button menu__button--primary js-start-game js-dismiss-parent-menu">Play vs player</button>
-        <button class="menu__button">Game rules</button>
+        <a href="#rules_menu" class="menu__button js-switch-menu">Game rules</a>
       </div>
 
-      <div id="rules_menu_window" class="menu__window rules-menu__window">
-        <h2 class="menu__title rules-menu">Rules</h2>
+      <div id="rules_menu" class="menu rules-menu">
+        <h2 class="menu__title">Rules</h2>
         
         <h3>Objective</h3>
         <p>Be the first player to connect 4 of the same colored discs in a row (either vertically, horizontally, or diagonally).</p>
@@ -47,7 +47,14 @@
           <li>The game ends when there is a 4-in-a-row or a stalemate.</li>
           <li>The starter of the previous game goes second on the next game.</li>
         </ol>
-        <button class="menu__check-dismiss-btn" aria-label="Close rules"></button>
+        <a href="#start_menu" class="menu__check-btn js-switch-menu" aria-label="Close rules"></a>
+      </div>
+
+      <div id="pause_menu" class="menu pause-menu">
+        <h2>Pause</h2>
+        <button class="menu__button js-dismiss-parent-menu js-resume-game">Continue game</button>
+        <button class="menu__button js-dismiss-parent-menu js-reset-game">Restart</button>
+        <a href="#start_menu" class="menu__button menu__button--secondary js-quit-game js-switch-menu" data-update-backdrop="true">Quit game</a>
       </div>
     </section>
 

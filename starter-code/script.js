@@ -16,10 +16,17 @@ const game = {
     currentPlayer: 'player_one',
     maxColumns: 7,
     maxRows: 6,
-    timePerTurn: 30
+    timePerTurn: 30,
+    isPaused: false
 }
 
-generatePiecesFromBoard();
+const quicktest = false;
+
+if (quicktest) {
+    generatePiecesFromBoard();
+    startGame();
+    dismissMenu();
+}
 
 document.querySelectorAll('.board-button').forEach(button => {
     button.addEventListener('click', function() {
@@ -31,17 +38,33 @@ document.querySelectorAll('.board-button').forEach(button => {
 document.querySelectorAll('.js-reset-game').forEach(element => element.addEventListener('click', resetGame));
 document.querySelectorAll('.js-start-next-game').forEach(element => element.addEventListener('click', startNextGame));
 document.querySelectorAll('.js-start-game').forEach(element => element.addEventListener('click', startGame));
+document.querySelectorAll('.js-pause-game').forEach(element => element.addEventListener('click', pauseGame));
+document.querySelectorAll('.js-resume-game').forEach(element => element.addEventListener('click', resumeGame));
 
 document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
-    dismissMenu.call(this);
+    dismissMenu();
 }));
 
+document.querySelectorAll('.js-switch-menu').forEach(element => element.addEventListener('click', function(e) {
+    e.preventDefault();
+    goToMenu(element.getAttribute('href'), this.dataset.updateBackdrop);
+}));
+
+function pauseGame() {
+    game.isPaused = true;
+    stopTurnTimer();
+}
+function resumeGame() {
+    startTurnTimer();
+    game.isPaused = false;
+}
 function startGame() {
+    game.isPaused = false;
     startTurnTimer();
 }
 function continueLastGame() {
     generatePiecesFromBoard();
-    startTurnTimer();
+    startGame();
 }
 function startNextGame() {
     resetGameDataAndUI();
@@ -50,25 +73,30 @@ function startNextGame() {
 }
 function resetGame() {
     resetGameDataAndUI();
+    updateCurrentPlayer(players[0]);
     startGame();
 }
 
-function dismissMenu(selector = false) {
-    let menu;
-
-    if (selector) {
-        menu = document.querySelector(selector);
-    } else if (this && this.nodeType) {
-        menu = this.closest('.menu');
-    }
+function goToMenu(targetMenuID, backdropNewType = false) {
+    let activeClass = 'menu--active';
+    let menuBackdrop = document.querySelector('.menu-backdrop');
+    document.querySelector(`.${activeClass}`).classList.remove(activeClass);
+    document.querySelector(targetMenuID).classList.add(activeClass);
     
-    if (menu) {
-        menu.classList.add('hidden');
+    if (menuBackdrop.classList.contains('hidden')) {
+        menuBackdrop.classList.remove('hidden');
+        menuBackdrop.setAttribute('data-type', targetMenuID.replace('#', ''));
+    } else if (backdropNewType) {
+        menuBackdrop.setAttribute('data-type', targetMenuID.replace('#', ''));
     }
 }
 
+function dismissMenu() {
+    document.querySelector('.menu-backdrop').classList.add('hidden');
+}
+
 function resetGameDataAndUI() {
-    clearInterval(game.turnTimerInterval);
+    stopTurnTimer();
     clearBoardData();
     clearBoardDisplay();
     document.querySelectorAll(`.board-button`).forEach(button => button.disabled = false);
@@ -87,25 +115,31 @@ function clearBoardData() {
 
 function alternateStartingPlayer() {
     players.push(players.splice(0, 1)[0]);
-    game.currentPlayer = players[0];
-    updatePlayerCSSColor();
-    refreshPlayerAliasDisplays();
+    updateCurrentPlayer(players[0]);
 }
 
 function incrementTimer() {
     game.remainingTurnTime--;
 
-    if (game.remainingTurnTime < 0) {
+    if (game.remainingTurnTime <= 0) {
         finishPlayerTurn();
-    } else {
-        updateRemainingTimeDisplay();
     }
+    
+    updateRemainingTimeDisplay();
 }
 
 function startTurnTimer() {
-    game.remainingTurnTime = game.timePerTurn;
-    updateRemainingTimeDisplay();
+    if (!game.isPaused) {
+        game.remainingTurnTime = game.timePerTurn;
+        updateRemainingTimeDisplay();
+    }
+
     game.turnTimerInterval = setInterval(incrementTimer, 1000);
+}
+
+function stopTurnTimer() {
+    clearInterval(game.turnTimerInterval);
+    game.turnTimerInterval = null;
 }
 
 function updateRemainingTimeDisplay() {
@@ -118,7 +152,12 @@ function generatePiecesFromBoard() {
         generateHTMLPiece(piece.column, piece.player);
     });
 }
+
 function addPiece(column, player = game.currentPlayer) {
+    if (!column) {
+        return;
+    }
+
     let piecesWithTheSameColumns = getPiecesByColumn(column);
     
     if (piecesWithTheSameColumns.length < game.maxRows) {
@@ -131,8 +170,9 @@ function addPiece(column, player = game.currentPlayer) {
         );
 
         generateHTMLPiece(column, player);
-
         sortBoardPieces();
+    } else {
+        return;
     }
 
     if (piecesWithTheSameColumns.length == game.maxRows - 1) {
@@ -175,7 +215,7 @@ function sortBoardPieces() {
 }
 
 function finishPlayerTurn() {
-    clearInterval(game.turnTimerInterval);
+    stopTurnTimer();
     
     if (checkForVictory()) {
         finishGame();
@@ -217,10 +257,14 @@ function startNextPlayerTurn() {
         nextPlayer = players[currentPlayerIndex+1];
     }
 
-    game.currentPlayer = nextPlayer;
+    updateCurrentPlayer(nextPlayer);
+    startTurnTimer();
+}
+
+function updateCurrentPlayer(player = false) {
+    game.currentPlayer = player;
     updatePlayerCSSColor();
     refreshPlayerAliasDisplays();
-    startTurnTimer();
 }
 
 function updatePlayerCSSColor(player = game.currentPlayer) {
@@ -239,6 +283,10 @@ function disableButtonByColumnNumber(column) {
 function checkForVictory() {
     let currentPlayerPieces = getCurrentPlayerPieces();
     let hasWon = false;
+
+    if (currentPlayerPieces.length < 4) {
+        return hasWon;
+    }
 
     for (let i = 0; i < currentPlayerPieces.length; i++) {
         const piece = currentPlayerPieces[i];
@@ -270,7 +318,7 @@ function checkPiecesInAxis(referencePiece, operation) {
     }
 
     if (hasWon) {
-        nextPieces.unshift(referencePiece)
+        nextPieces.unshift(referencePiece);
         hightlightWinningPieces(nextPieces);
     }
     

@@ -26,7 +26,6 @@ body {
     --border: 3px solid #000000;
     margin: 0;
     background-color: var(--background-color);
-    color: #575757;
     font-family: 'SpaceGrotesk', sans-serif;
     font-weight: 500;
     line-height: 1.3125;
@@ -50,6 +49,7 @@ h2, .h2 {
     margin-bottom: .53em;
     color: #000;
     font-size: 3.5em;
+    line-height: 1.28;
     text-align: center;
 }
 h3, .h3 {
@@ -61,10 +61,17 @@ h3, .h3 {
 p {
     margin-bottom: 1.3125em;
 }
+a {
+    color: currentColor;
+    text-decoration: none;
+}
 ul, ol {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+ol {
+    
 }
 li {
     margin-bottom: .625em;
@@ -93,14 +100,14 @@ button {
     font-weight: 700;
     line-height: 1.25;
     text-transform: uppercase;
-    transition: 300ms ease-in-out;
+    transition: 300ms ease-in;
 }
 .btn:hover, .btn:focus, .btn:active {
     background-color: var(--color-three);
 }
 
 
-.menu {
+.menu-backdrop {
     position: absolute;
     top: 0;
     left: 0;
@@ -109,7 +116,10 @@ button {
     z-index: 100;
     background-color: var(--color-two);
 }
-.menu__window {
+.menu-backdrop[data-type="pause_menu"] {
+    background-color: rgba(0, 0, 0, .5);
+}
+.menu {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -122,6 +132,10 @@ button {
     border: var(--border);
     border-radius: 40px;
     box-shadow: var(--bottom-shadow);
+    color: #575757;
+}
+.menu:not(.menu--active) {
+    display: none;
 }
 .menu__button {
     display: block;
@@ -131,7 +145,8 @@ button {
     border: var(--border);
     border-radius: 20px;
     box-shadow: 0px 10px 0px var(--shadow-color);
-    transition: 300ms ease-in-out;
+    transition: 300ms ease-in;
+    color: #000;
     font-size: 1.5rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -140,9 +155,13 @@ button {
 .menu__button:not(:last-child) {
     margin-bottom: 1.875rem;
 }
-.menu__button:hover, .menu__button:focus, .menu__button:active {
+.menu__button:hover, .menu__button:focus {
     --shadow-color: var(--color-two);
     border-color: var(--color-two);
+}
+.menu__button:active {
+    transform: translateY(5px);
+    box-shadow: 0px 5px 0px var(--shadow-color);
 }
 .menu__button--primary {
     background-color: var(--color-four);
@@ -150,7 +169,7 @@ button {
 .menu__button--secondary {
     background-color: var(--color-three);
 }
-.menu__check-dismiss-btn {
+.menu__check-btn {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -161,8 +180,9 @@ button {
     border: 3px solid #000;
     border-radius: 50%;
     box-shadow: 0px 5px 0px var(--shadow-color);
+    transition: 300ms ease-in;
 }
-.menu__check-dismiss-btn::before {
+.menu__check-btn::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -175,11 +195,16 @@ button {
     background-position: center;
     background-size: contain;
 }
-.menu__check-dismiss-btn:hover, .menu__check-dismiss-btn:focus, .menu__check-dismiss-btn:active {
+.menu__check-btn:hover, .menu__check-btn:focus, .menu__check-btn:active {
     --shadow-color: var(--color-two);
     border-color: var(--color-two);
 }
-.start-menu__window {
+.menu__check-btn:active {
+    transform: translate(-50%, calc(50% + 3px));
+    box-shadow: 0px 2px 0px var(--shadow-color);
+}
+
+.start-menu {
     padding-top: 4.375rem;
 }
 .start-menu__logo {
@@ -188,7 +213,7 @@ button {
     margin-right: auto;
     margin-bottom: 5rem;
 }
-.rules-menu__window {
+.rules-menu {
     background-color: #FFF;
     padding: 1.875rem 2.125rem 3.375rem;
 }
@@ -261,7 +286,7 @@ button {
     width: calc(100% - 46px);
     height: calc(100% - 46px);
     padding-bottom: 2.5rem;
-    gap: 29px;
+    gap: 30px;
     border: 3px solid transparent;
 }
 .board__column {
@@ -269,6 +294,9 @@ button {
     flex-direction: column-reverse;
     gap: 30px;
     height: 100%;
+}
+.board-background__slot, .board__piece {
+    margin-bottom: 0;
 }
 .board__piece {
     background-color: pink;
@@ -407,7 +435,7 @@ button {
 }
 .board-button svg, .board-button::before, .board-button::after {
     opacity: 0;
-    transition: 300ms ease-in-out;
+    transition: 300ms ease-in;
 }
 .board-button svg {
     width: 32px;
@@ -417,7 +445,7 @@ button {
     animation-duration: .7s;
     animation-direction: alternate;
     animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in;
 }
 .board-button::before {
     content: '';
