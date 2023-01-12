@@ -23,10 +23,42 @@ const game = {
 const quicktest = false;
 
 if (quicktest) {
+    game.timePerTurn = 10,
     generatePiecesFromBoard();
     startGame();
-    dismissMenu();
+    dismissMenuAndBackdrop();
+} else {
+    focusFirstFocusableElement(document.querySelector('#start_menu'));
 }
+
+document.addEventListener('keydown', function(e) {
+    if (e.key == 'Escape') {
+        if (isGameRunning()) {
+            goToMenu('#pause_menu');
+            pauseGame();
+        } else if (getActiveMenu().id != 'start_menu') {
+            dismissMenuAndBackdrop();
+        }
+    } else if (parseInt(e.key) > 0 && parseInt(e.key) <= game.maxColumns) {
+        if (isGameRunning()) {
+            document.querySelector(`.board-button[data-column="${e.key}"]`).focus();
+        }
+    } else if (e.key == 'ArrowLeft' || e.key == 'ArrowRight') {
+        if (isGameRunning()) {
+            let currentlySelectedElement = document.querySelector('*:focus');
+            let currentColumn = parseInt(currentlySelectedElement.dataset.column);
+            let columnToFocus = e.key == 'ArrowLeft' ? currentColumn - 1 : currentColumn + 1;
+
+            if (columnToFocus < 1) {
+                columnToFocus = game.maxColumns;
+            } else if (columnToFocus > game.maxColumns) {
+                columnToFocus = 1;
+            }
+
+            document.querySelector(`.board-button[data-column="${columnToFocus}"]`).focus();
+        }
+    }
+});
 
 document.querySelectorAll('.board-button').forEach(button => {
     button.addEventListener('click', function() {
@@ -42,13 +74,15 @@ document.querySelectorAll('.js-pause-game').forEach(element => element.addEventL
 document.querySelectorAll('.js-resume-game').forEach(element => element.addEventListener('click', resumeGame));
 
 document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
-    dismissMenu();
+    dismissMenuAndBackdrop();
 }));
 
 document.querySelectorAll('.js-switch-menu').forEach(element => element.addEventListener('click', function(e) {
     e.preventDefault();
-    goToMenu(element.getAttribute('href'), this.dataset.updateBackdrop);
+    goToMenu.call(this, element.getAttribute('href'), this.dataset.updateBackdrop);
 }));
+
+document.querySelectorAll('.js-trap-focus, .menu').forEach(element => element.addEventListener('keydown', handleKeyPressInModal));
 
 function pauseGame() {
     game.isPaused = true;
@@ -61,6 +95,7 @@ function resumeGame() {
 function startGame() {
     game.isPaused = false;
     startTurnTimer();
+    document.querySelector('.board-button[data-column="1"]').focus();
 }
 function continueLastGame() {
     generatePiecesFromBoard();
@@ -77,22 +112,103 @@ function resetGame() {
     startGame();
 }
 
+function isGameRunning() {
+    return !game.isPaused && !getActiveMenu();
+}
+
 function goToMenu(targetMenuID, backdropNewType = false) {
     let activeClass = 'menu--active';
     let menuBackdrop = document.querySelector('.menu-backdrop');
-    document.querySelector(`.${activeClass}`).classList.remove(activeClass);
-    document.querySelector(targetMenuID).classList.add(activeClass);
-    
-    if (menuBackdrop.classList.contains('hidden')) {
+    let backdropWasNotVisible = menuBackdrop.classList.contains('hidden');
+    let menu = document.querySelector(targetMenuID);
+    hideActiveMenu();
+    menu.classList.add(activeClass);
+
+    if (backdropWasNotVisible) {
         menuBackdrop.classList.remove('hidden');
         menuBackdrop.setAttribute('data-type', targetMenuID.replace('#', ''));
+
+        if (this.nodeType) {
+            game.lastMenuOpener = this;
+        }
     } else if (backdropNewType) {
         menuBackdrop.setAttribute('data-type', targetMenuID.replace('#', ''));
     }
+    
+    focusFirstFocusableElement(menu);
 }
 
-function dismissMenu() {
-    document.querySelector('.menu-backdrop').classList.add('hidden');
+function dismissMenuAndBackdrop() {
+    let menuBackdrop = document.querySelector('.menu-backdrop')
+    menuBackdrop.classList.add('hidden');
+    menuBackdrop.setAttribute('data-type', 'start_menu');
+    hideActiveMenu();
+    
+    if (game.lastMenuOpener) {
+        game.lastMenuOpener.focus();
+        game.lastMenuOpener = null;
+    }
+    if (game.isPaused) {
+        resumeGame();
+    }
+}
+
+function hideActiveMenu() {
+    let activeClass = 'menu--active';
+    let activeMenu = document.querySelector(`.${activeClass}`);
+
+    if (activeMenu) {
+        activeMenu.classList.remove(activeClass);
+    }
+}
+
+function getActiveMenu() {
+    return document.querySelector('.menu--active');
+}
+
+function handleKeyPressInModal(e) {
+    if (e.key == 'Tab') {
+        trapFocusInElement.call(this, e);
+    }
+}
+
+function trapFocusInElement(e) {
+    if (e.key == 'Tab') {
+        let focusableElements = getKeyboardFocusableElements(this);
+        let firstFocusableElement = focusableElements[0];
+        let lastFocusableElement = focusableElements[focusableElements.length - 1];
+        let focusedElement = this.querySelector(':focus'); 
+
+        if (e.shiftKey) {
+            if (focusedElement === firstFocusableElement) {
+                e.preventDefault();
+                lastFocusableElement.focus();
+            }
+        } else {
+            if (focusedElement === lastFocusableElement) {
+                e.preventDefault();
+                firstFocusableElement.focus();
+            }
+        }
+    }
+
+}
+
+function focusFirstFocusableElement(element = document) {
+    let firstFocusableElementInStartMenu = getKeyboardFocusableElements(element)[0];
+    if (firstFocusableElementInStartMenu) {
+        firstFocusableElementInStartMenu.focus();
+    }
+}
+
+function getKeyboardFocusableElements(element = document) {
+    return [
+      ...element.querySelectorAll(
+        'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
+      )
+    ].filter(
+      el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden')
+    )
 }
 
 function resetGameDataAndUI() {
@@ -103,6 +219,7 @@ function resetGameDataAndUI() {
     document.querySelector('.winner-window').classList.add('hidden');
     document.querySelector('.tie-window').classList.add('hidden');
     document.querySelector('.current-turn-window').classList.remove('hidden');
+    document.querySelector('body').style.setProperty('--winner-color', ``);
 }
 
 function clearBoardDisplay() {
@@ -244,6 +361,7 @@ function finishGame(isATie = false) {
         playerScores[game.currentPlayer]++;
         document.querySelector(`.player-score-window--${game.currentPlayer} .player-score`).textContent = playerScores[game.currentPlayer];
         document.querySelector('.winner-window').classList.remove('hidden');
+        document.querySelector('body').style.setProperty('--winner-color', `var(--${game.currentPlayer}-color)`);
     }
 }
 
