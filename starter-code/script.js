@@ -17,7 +17,8 @@ const game = {
     maxColumns: 7,
     maxRows: 6,
     timePerTurn: 30,
-    isPaused: false
+    isPaused: false,
+    menuHistory: []
 }
 
 const quicktest = false;
@@ -36,8 +37,8 @@ document.addEventListener('keydown', function(e) {
         if (isGameRunning()) {
             goToMenu('#pause_menu');
             pauseGame();
-        } else if (getActiveMenu().id != 'start_menu') {
-            dismissMenuAndBackdrop();
+        } else {
+            goToPreviousMenu();
         }
     } else if (parseInt(e.key) > 0 && parseInt(e.key) <= game.maxColumns) {
         if (isGameRunning()) {
@@ -72,9 +73,11 @@ document.querySelectorAll('.js-start-next-game').forEach(element => element.addE
 document.querySelectorAll('.js-start-game').forEach(element => element.addEventListener('click', startGame));
 document.querySelectorAll('.js-pause-game').forEach(element => element.addEventListener('click', pauseGame));
 document.querySelectorAll('.js-resume-game').forEach(element => element.addEventListener('click', resumeGame));
+document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', dismissMenuAndBackdrop));
+document.querySelectorAll('.js-go-to-prev-menu').forEach(element => element.addEventListener('click', goToPreviousMenu));
 
-document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
-    dismissMenuAndBackdrop();
+document.querySelectorAll('.js-force-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
+    dismissMenuAndBackdrop(true);
 }));
 
 document.querySelectorAll('.js-switch-menu').forEach(element => element.addEventListener('click', function(e) {
@@ -116,41 +119,79 @@ function isGameRunning() {
     return !game.isPaused && !getActiveMenu();
 }
 
+function goToPreviousMenu() {
+    if (!game.menuHistory.length) {
+        dismissMenuAndBackdrop();
+        return;
+    }
+
+    let previousMenu = game.menuHistory[game.menuHistory.length - 1];
+
+    goToMenu(`#${previousMenu.menuId}`);
+
+    if (previousMenu.openedBy) {
+        previousMenu.openedBy.focus();
+    }
+}
+
 function goToMenu(targetMenuID, backdropNewType = false) {
     let activeClass = 'menu--active';
     let menuBackdrop = document.querySelector('.menu-backdrop');
     let backdropWasNotVisible = menuBackdrop.classList.contains('hidden');
     let menu = document.querySelector(targetMenuID);
+    let previouslyOpenedMenu = game.menuHistory[game.menuHistory.length - 1];
+
+    if (previouslyOpenedMenu && previouslyOpenedMenu.menuId == menu.id) {
+        game.menuHistory.pop();
+    } else if (getActiveMenu() && previouslyOpenedMenu != menu) {
+        game.menuHistory.push({menuId: getActiveMenu().id, openedBy: this.nodeType ? this : null});
+    }
+
     hideActiveMenu();
     menu.classList.add(activeClass);
 
     if (backdropWasNotVisible) {
         menuBackdrop.classList.remove('hidden');
-        menuBackdrop.setAttribute('data-type', targetMenuID.replace('#', ''));
 
         if (this.nodeType) {
             game.lastMenuOpener = this;
         }
-    } else if (backdropNewType) {
+    }
+
+    if (backdropWasNotVisible || backdropNewType) {
         menuBackdrop.setAttribute('data-type', targetMenuID.replace('#', ''));
     }
     
     focusFirstFocusableElement(menu);
 }
 
-function dismissMenuAndBackdrop() {
-    let menuBackdrop = document.querySelector('.menu-backdrop')
-    menuBackdrop.classList.add('hidden');
-    menuBackdrop.setAttribute('data-type', 'start_menu');
+function dismissMenuAndBackdrop(ignoreExceptions = false) {
+    let exceptions = ['start_menu'];
+    let activeMenuId = getActiveMenu().id;
+
+    if (!ignoreExceptions && exceptions.indexOf(activeMenuId) >= 0) {
+        return;
+    }
+
+    hideAndResetMenuBackdrop();
     hideActiveMenu();
+
+    game.menuHistory = [];
     
     if (game.lastMenuOpener) {
         game.lastMenuOpener.focus();
         game.lastMenuOpener = null;
     }
+    
     if (game.isPaused) {
         resumeGame();
     }
+}
+
+function hideAndResetMenuBackdrop() {
+    let menuBackdrop = document.querySelector('.menu-backdrop');
+    menuBackdrop.classList.add('hidden');
+    menuBackdrop.setAttribute('data-type', 'start_menu');
 }
 
 function hideActiveMenu() {

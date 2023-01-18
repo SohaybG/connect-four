@@ -151,7 +151,7 @@
   <section class="menu-backdrop" data-type="start_menu">
     <div id="start_menu" class="menu menu--active start-menu">
       <img class="start-menu__logo logo" src="./assets/images/logo.svg" alt="Game logo">
-      <button class="menu__button menu__button--primary js-start-game js-dismiss-parent-menu">
+      <button class="menu__button menu__button--primary js-start-game js-force-dismiss-parent-menu">
         <span>Play vs player</span>
         <img class="menu__button-icon" src="./assets/images/player-vs-player.svg" alt="" role="presentation">
       </button>
@@ -171,7 +171,7 @@
         <li>The game ends when there is a 4-in-a-row or a stalemate.</li>
         <li>The starter of the previous game goes second on the next game.</li>
       </ol>
-      <a href="#start_menu" class="menu__check-btn js-switch-menu" aria-label="Close rules"></a>
+      <a href="#start_menu" class="menu__check-btn js-go-to-prev-menu" aria-label="Close rules"></a>
     </div>
 
     <div id="pause_menu" class="menu pause-menu">
