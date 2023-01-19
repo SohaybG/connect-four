@@ -126,27 +126,27 @@
           </ul>
         </div>
       </div>
-        
-      <div class="game-info-window current-turn-window">
-        <p class="game-info-window__text current-turn-window__text">
-          <span data-update-player-alias>Player 1</span>'s turn<br>
-          <strong class="current-turn-timer"></strong>
-        </p>
-      </div>
-        
-      <div class="game-info-window winner-window hidden">
-        <p class="game-info-window__text winner-window__text"><span data-update-player-alias>Player 1</span><br> <strong>wins</strong></p>
-        <button class="btn js-start-next-game">Play again</button>
-      </div>
-
-      <div class="game-info-window tie-window hidden">
-        <p class="game-info-window__text tie-window__text"><strong>Tie</strong></p>
-        <button class="btn js-start-next-game">Play again</button>
-      </div>
     </div>
   </main>
 
-  <footer class="footer"></footer>
+  <footer class="footer">
+    <div class="game-info-window current-turn-window">
+      <p class="game-info-window__text current-turn-window__text">
+        <span data-update-player-alias>Player 1</span>'s turn<br>
+        <strong class="current-turn-timer"></strong>
+      </p>
+    </div>
+      
+    <div class="game-info-window winner-window hidden">
+      <p class="game-info-window__text winner-window__text"><span data-update-player-alias>Player 1</span><br> <strong>wins</strong></p>
+      <button class="btn js-start-next-game">Play again</button>
+    </div>
+
+    <div class="game-info-window tie-window hidden">
+      <p class="game-info-window__text tie-window__text"><strong>Tie</strong></p>
+      <button class="btn js-start-next-game">Play again</button>
+    </div>
+  </footer>
     
   <section class="menu-backdrop" data-type="start_menu">
     <div id="start_menu" class="menu menu--active start-menu">
