@@ -122,7 +122,7 @@ button {
     background-color: var(--color-three);
 }
 
-
+/* Menus */
 .menu-backdrop {
     position: fixed;
     top: 0;
@@ -242,6 +242,7 @@ button {
     padding: 1.875rem 2.125rem 3.375rem;
 }
 
+/* Header */
 .header__container {
     display: grid;
     align-items: center;
@@ -257,6 +258,8 @@ button {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
 }
+
+/* Board */
 .board-background {
     grid-template-rows: repeat(6, 1fr);
     gap: 1.5rem;
@@ -270,15 +273,7 @@ button {
     border-radius: 40px;
     box-shadow: var(--bottom-shadow);
 }
-.footer {
-    flex-grow: 1;
-    width: 100%;
-    margin-top: -2.625rem;
-    border-radius: 3.75rem 3.75rem 0 0;
-    transition: 300ms ease-in-out;
-    background-color: var(--winner-color, var(--color-two));
-}
-.something {
+.board-and-avatars {
     display: flex;
     align-items: center;
 }
@@ -370,7 +365,16 @@ button {
     border-radius: 50%;
     background-color: transparent;
 }
+.footer {
+    flex-grow: 1;
+    width: 100%;
+    margin-top: -2.625rem;
+    border-radius: 3.75rem 3.75rem 0 0;
+    transition: 300ms ease-in-out;
+    background-color: var(--winner-color, var(--color-two));
+}
 
+/* Info windows (current turn, win, player scores) */
 .game-info-window {
     position: relative;
     z-index: 1;
@@ -400,6 +404,7 @@ button {
 .current-turn-window {
     background-color: var(--player-color);
     padding: 1rem 1.875rem;
+    /* clip-path: path("M3 55.2795C3 47.2326 7.82258 39.9694 15.2389 36.8468L90.2793 5.25082C95.2186 3.17114 100.786 3.16075 105.733 5.22198L181.692 36.8718C189.145 39.9772 194 47.2593 194 55.3333V132C194 143.046 185.046 152 174 152H23C11.9543 152 3 143.046 3 132V55.2795Z"); */
 }
 .current-turn-timer {
     text-transform: none;
@@ -433,6 +438,7 @@ button {
     fill: var(--player-color);
 }
 
+/* Buttons */
 .board-buttons {
     display: flex;
     justify-content: center;

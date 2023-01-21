@@ -27,7 +27,7 @@ if (quicktest) {
     game.timePerTurn = 10,
     generatePiecesFromBoard();
     startGame();
-    dismissMenuAndBackdrop();
+    dismissMenuAndBackdrop(true);
 } else {
     focusFirstFocusableElement(document.querySelector('#start_menu'));
 }
@@ -465,53 +465,41 @@ function checkForVictory() {
 }
 
 function checkPiecesInAxis(referencePiece, operation) {
-    let hasWon = true;
-    let nextPieces = operation(referencePiece);
+    let streakIsStillGoing = true;
+    let streakPieces = [referencePiece];
+    let currentPiece = referencePiece;
 
-    for (let i = 0; i < nextPieces.length; i++) {
-        const nextPiece = nextPieces[i];
+    while (streakIsStillGoing) {
+        let nextPiece = operation(currentPiece);
 
-        if (!nextPiece || (nextPiece.player != referencePiece.player)) {
-            hasWon = false;
+        if (nextPiece && (nextPiece.player == currentPiece.player)) {
+            streakPieces.push(nextPiece);
+            currentPiece = nextPiece;
+        } else {
+            streakIsStillGoing = false;
         }
     }
 
-    if (hasWon) {
-        nextPieces.unshift(referencePiece);
-        hightlightWinningPieces(nextPieces);
+    if (streakPieces.length > 3) {
+        hightlightWinningPieces(streakPieces);
+        return true;
+    } else {
+        return false;
     }
-    
-    return hasWon;
 }
 
 function getNextHorizonalPieces(referencePiece) {
-    return [
-        getPieceByCoordinates(referencePiece.column + 1, referencePiece.row),
-        getPieceByCoordinates(referencePiece.column + 2, referencePiece.row),
-        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row)
-    ];
+    return getPieceByCoordinates(referencePiece.column + 1, referencePiece.row);
 }
 function getNextVerticalPieces(referencePiece) {
-    return [
-        getPieceByCoordinates(referencePiece.column, referencePiece.row + 1),
-        getPieceByCoordinates(referencePiece.column, referencePiece.row + 2),
-        getPieceByCoordinates(referencePiece.column, referencePiece.row + 3)
-    ];
+    return getPieceByCoordinates(referencePiece.column, referencePiece.row + 1);
 }
 function getNextUpDiagonalPieces(referencePiece) {
-    return [
-        getPieceByCoordinates(referencePiece.column + 1, referencePiece.row + 1),
-        getPieceByCoordinates(referencePiece.column + 2, referencePiece.row + 2),
-        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row + 3)
-    ];
+    return getPieceByCoordinates(referencePiece.column + 1, referencePiece.row + 1);
 }
 
 function getNextDownDiagonalPieces(referencePiece) {
-    return [
-        getPieceByCoordinates(referencePiece.column + 1, referencePiece.row - 1),
-        getPieceByCoordinates(referencePiece.column + 2, referencePiece.row - 2),
-        getPieceByCoordinates(referencePiece.column + 3, referencePiece.row - 3)
-    ];
+    return getPieceByCoordinates(referencePiece.column + 1, referencePiece.row - 1);
 }
 
 function hightlightWinningPieces(pieces) {
