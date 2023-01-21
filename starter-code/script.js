@@ -428,6 +428,7 @@ function updateCurrentPlayer(player = false) {
 
 function updatePlayerCSSColor(player = game.currentPlayer) {
     document.querySelector('body').style.setProperty('--player-color', `var(--${player}-color)`);
+    document.querySelector('body').style.setProperty('--player-text-color', `var(--${player}-text-color)`);
 }
 
 function refreshPlayerAliasDisplays(player = game.currentPlayer) {

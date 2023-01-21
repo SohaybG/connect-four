@@ -22,7 +22,10 @@ body {
     --background-color: var(--color-one);
     --player_one-color: var(--color-three);
     --player_two-color: var(--color-four);
+    --player_one-text-color: #FFF;
+    --player_two-text-color: #000;
     --player-color: var(--player_one-color);
+    --player-text-color: var(--player_one-text-color);
     --container-width: 1046px;
     --shadow-color: #000000;
     --shadow-y-offset: 10px; 
@@ -407,8 +410,9 @@ button {
     background-color: #FFF;
 }
 .current-turn-window {
-    background-color: var(--player-color);
     padding: 1rem 1.875rem;
+    background-color: var(--player-color);
+    color: var(--player-text-color);
     /* clip-path: path("M3 55.2795C3 47.2326 7.82258 39.9694 15.2389 36.8468L90.2793 5.25082C95.2186 3.17114 100.786 3.16075 105.733 5.22198L181.692 36.8718C189.145 39.9772 194 47.2593 194 55.3333V132C194 143.046 185.046 152 174 152H23C11.9543 152 3 143.046 3 132V55.2795Z"); */
 }
 .current-turn-timer {
