@@ -150,35 +150,42 @@
     
   <section class="menu-backdrop" data-type="start_menu">
     <div id="start_menu" class="menu menu--active start-menu">
-      <img class="start-menu__logo logo" src="./assets/images/logo.svg" alt="Game logo">
-      <button class="menu__button menu__button--primary js-start-game js-force-dismiss-parent-menu">
-        <span>Play vs player</span>
-        <img class="menu__button-icon" src="./assets/images/player-vs-player.svg" alt="" role="presentation">
-      </button>
-      <a href="#rules_menu" class="menu__button js-switch-menu">Game rules</a>
+      <div class="menu__container">
+        <img class="start-menu__logo logo" src="./assets/images/logo.svg" alt="Game logo">
+        <button class="menu__button menu__button--primary js-start-game js-force-dismiss-parent-menu">
+          <span>Play vs player</span>
+          <img class="menu__button-icon" src="./assets/images/player-vs-player.svg" alt="" role="presentation">
+        </button>
+        <a href="#rules_menu" class="menu__button js-switch-menu">Game rules</a>
+      </div>
     </div>
 
     <div id="rules_menu" class="menu rules-menu">
-      <h2 class="menu__title">Rules</h2>
-      
-      <h3>Objective</h3>
-      <p>Be the first player to connect 4 of the same colored discs in a row (either vertically, horizontally, or diagonally).</p>
+      <div class="menu__container">
+        <h2 class="menu__title">Rules</h2>
+        
+        <h3>Objective</h3>
+        <p>Be the first player to connect 4 of the same colored discs in a row (either vertically, horizontally, or diagonally).</p>
 
-      <h3>How to play</h3>
-      <ol>
-        <li>Red goes first in the first game.</li>
-        <li>Players must alternate turns, and only one disc can be dropped in each turn.</li>
-        <li>The game ends when there is a 4-in-a-row or a stalemate.</li>
-        <li>The starter of the previous game goes second on the next game.</li>
-      </ol>
+        <h3>How to play</h3>
+        <ol>
+          <li>Red goes first in the first game.</li>
+          <li>Players must alternate turns, and only one disc can be dropped in each turn.</li>
+          <li>The game ends when there is a 4-in-a-row or a stalemate.</li>
+          <li>The starter of the previous game goes second on the next game.</li>
+        </ol>
+      </div>
+
       <a href="#start_menu" class="menu__check-btn js-go-to-prev-menu" aria-label="Close rules"></a>
     </div>
 
     <div id="pause_menu" class="menu pause-menu">
-      <h2>Pause</h2>
-      <button class="menu__button js-dismiss-parent-menu js-resume-game">Continue game</button>
-      <button class="menu__button js-dismiss-parent-menu js-reset-game">Restart</button>
-      <a href="#start_menu" class="menu__button menu__button--secondary js-quit-game js-switch-menu" data-update-backdrop="true">Quit game</a>
+      <div class="menu__container">
+        <h2>Pause</h2>
+        <button class="menu__button js-dismiss-parent-menu js-resume-game">Continue game</button>
+        <button class="menu__button js-dismiss-parent-menu js-reset-game">Restart</button>
+        <a href="#start_menu" class="menu__button menu__button--secondary js-quit-game js-switch-menu" data-update-backdrop="true">Quit game</a>
+      </div>
     </div>
   </section>
 

@@ -25,7 +25,8 @@ body {
     --player-color: var(--player_one-color);
     --container-width: 1046px;
     --shadow-color: #000000;
-    --bottom-shadow: 0px 10px 0px var(--shadow-color);
+    --shadow-y-offset: 10px; 
+    --bottom-shadow: 0px var(--shadow-y-offset) 0px var(--shadow-color);
     --border: 3px solid #000000;
     margin: 0;
     background-color: var(--background-color);
@@ -140,6 +141,8 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
     max-width: 480px;
     max-height: calc(100% - 30px);
     width: calc(100% - 30px);
@@ -149,10 +152,13 @@ button {
     border-radius: 40px;
     box-shadow: var(--bottom-shadow);
     color: #575757;
-    overflow: auto;
 }
 .menu:not(.menu--active) {
     display: none;
+}
+.menu__container {
+    overflow: auto;
+    padding-bottom: var(--shadow-y-offset);
 }
 .menu__button {
     display: flex;
@@ -379,7 +385,6 @@ button {
     position: relative;
     z-index: 1;
     width: fit-content;
-    margin-top: -2.625rem;
     margin-left: auto;
     margin-right: auto;
     border: var(--border);
