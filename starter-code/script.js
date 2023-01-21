@@ -21,7 +21,7 @@ const game = {
     menuHistory: []
 }
 
-const quicktest = false;
+const quicktest = true;
 
 if (quicktest) {
     game.timePerTurn = 10,

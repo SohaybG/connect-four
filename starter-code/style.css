@@ -282,9 +282,11 @@ button {
     border-radius: 40px;
     box-shadow: var(--bottom-shadow);
 }
-.board-and-avatars {
+.match-interface {
+    position: relative;
     display: flex;
     align-items: center;
+    padding-top: 4.75rem; /* Height of a column button */
 }
 .board-wrapper {
     position: relative;
@@ -449,10 +451,16 @@ button {
 
 /* Buttons */
 .board-buttons {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 12px;
+    height: 100%;
 }
 .column-marker {
     fill: var(--player-color);
@@ -461,9 +469,8 @@ button {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 76px;
-    height: 76px;
+    height: 100%;
     z-index: 0;
 }
 .board-button svg, .board-button::before, .board-button::after {
@@ -473,7 +480,7 @@ button {
 .board-button svg {
     width: 32px;
     height: 26px;
-    margin-top: 3px;
+    margin-top: 25px;
     animation-name: up-and-down;
     animation-duration: .7s;
     animation-direction: alternate;
@@ -488,8 +495,8 @@ button {
     width: 64px;
     height: 64px;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 6px;
+    transform: translateX(-50%);
     border-radius: 50%;
 }
 .board-button:hover:before,
@@ -516,9 +523,9 @@ button {
 .board-button:disabled:after {
     content: '';
     position: absolute;
-    top: 50%;
+    top: 38px;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translateX(-50%) rotate(45deg);
     width: calc(100% - 14px);
     height: 3px;
     background: #000;
