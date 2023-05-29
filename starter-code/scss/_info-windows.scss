@@ -1,0 +1,62 @@
+.game-info-window {
+    position: relative;
+    z-index: 1;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: var(--border);
+    box-shadow: var(--bottom-shadow);
+    text-align: center;
+    border-radius: 1.25rem;
+    font-weight: 700;
+    line-height: 1.28;
+    text-transform: uppercase;
+}
+.game-info-window__text {
+    margin: 0;
+}
+.game-info-window strong {
+    font-size: 3.5em;
+    line-height: 1.28;
+}
+.winner-window, .tie-window {
+    padding: 1.125rem 4.625rem;
+    background-color: #FFF;
+}
+.current-turn-window {
+    padding: 1rem 1.875rem;
+    background-color: var(--player-color);
+    color: var(--player-text-color);
+    /* clip-path: path("M3 55.2795C3 47.2326 7.82258 39.9694 15.2389 36.8468L90.2793 5.25082C95.2186 3.17114 100.786 3.16075 105.733 5.22198L181.692 36.8718C189.145 39.9772 194 47.2593 194 55.3333V132C194 143.046 185.046 152 174 152H23C11.9543 152 3 143.046 3 132V55.2795Z"); */
+}
+.current-turn-timer {
+    text-transform: none;
+}
+.player-score-window {
+    margin: 0;
+    background-color: #FFF;
+    padding: 0 1.75rem 1.125rem;
+    font-size: 1.25rem;
+}
+.player-score-window strong {
+    font-size: 2.8em;
+}
+.player-score-window--player_one {
+    --player-color: var(--player_one-color);
+    margin-right: 3.5rem;
+}
+.player-score-window--player_two {
+    --player-color: var(--player_two-color);
+    margin-left: 3.5rem;
+    order: 1;
+}
+.player-avatar {
+    margin-top: -30px;
+    margin-bottom: .875rem;
+}
+  .player-avatar--player_two {
+    transform: scaleX(-1);
+}
+  .player-avatar-face {
+    fill: var(--player-color);
+}

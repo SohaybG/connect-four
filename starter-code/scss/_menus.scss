@@ -1,0 +1,123 @@
+.menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: var(--color-two);
+}
+.menu-backdrop[data-type="pause_menu"] {
+background-color: rgba(0, 0, 0, .5);
+}
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    max-height: calc(100% - 30px);
+    width: calc(100% - 30px);
+    padding: 3.125rem 2.5rem 3.75rem;
+    background-color: var(--color-one);
+    border: var(--border);
+    border-radius: 40px;
+    box-shadow: var(--bottom-shadow);
+    color: #575757;
+}
+.menu:not(.menu--active) {
+    display: none;
+}
+.menu__container {
+    overflow: auto;
+    padding-bottom: var(--shadow-y-offset);
+}
+.menu__button {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    padding: .7em;
+    background-color: #FFF;
+    border: var(--border);
+    border-radius: 20px;
+    box-shadow: 0px 10px 0px var(--shadow-color);
+    transition: 300ms ease-in;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+    text-align: left;
+}
+.menu__button:not(:last-child) {
+    margin-bottom: 1.875rem;
+}
+.menu__button:hover, .menu__button:focus {
+    --shadow-color: var(--color-two);
+    border-color: var(--color-two);
+}
+.menu__button:active {
+    transform: translateY(5px);
+    box-shadow: 0px 5px 0px var(--shadow-color);
+}
+.menu__button--primary {
+    background-color: var(--color-four);
+}
+.menu__button--secondary {
+    background-color: var(--color-three);
+}
+.menu__button-icon {
+    margin: -7px 0px;
+}
+.menu__check-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 64px;
+    height: 64px;
+    background: #FD6687;
+    border: 3px solid #000;
+    border-radius: 50%;
+    box-shadow: 0px 5px 0px var(--shadow-color);
+    transition: 300ms ease-in;
+}
+.menu__check-btn:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.875rem;
+    height: 1.25rem;
+    background-image: url(./assets/images/checkmark.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+  .menu__check-btn:hover, .menu__check-btn:focus, .menu__check-btn:active {
+    --shadow-color: var(--color-two);
+    border-color: var(--color-two);
+}
+  .menu__check-btn:active {
+    transform: translate(-50%, calc(50% + 3px));
+    box-shadow: 0px 2px 0px var(--shadow-color);
+}
+  
+.start-menu {
+    padding-top: 4.375rem;
+}
+.start-menu__logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5rem;
+}
+.rules-menu {
+    background-color: #FFF;
+    padding: 1.875rem 2.125rem 3.375rem;
+}

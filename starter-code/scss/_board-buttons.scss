@@ -1,0 +1,81 @@
+.board-buttons {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    height: 100%;
+}
+.board-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 76px;
+    height: 100%;
+    z-index: 0;
+
+    &:focus {
+        outline: none;
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        background-color: rgba(255, 255, 255, .18);
+        width: 64px;
+        height: 64px;
+        left: 50%;
+        top: 6px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+    }
+    &:hover, &:focus, &:active {
+        svg, &:before, &:after {
+            opacity: 1;
+        }
+    }
+    &:disabled {
+        cursor: not-allowed;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 38px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: calc(100% - 14px);
+            height: 3px;
+            background: #000;
+        }
+        svg {
+            animation-name: none;
+        }
+    }
+  
+    &:focus, &:disabled {
+        &:before {
+            border: 3px solid #000;
+        }
+    }
+}
+.board-button svg, .board-button:before, .board-button:after {
+    opacity: 0;
+    transition: 300ms ease-in;
+}
+.board-button svg {
+    width: 32px;
+    height: 26px;
+    margin-top: 25px;
+    animation-name: up-and-down;
+    animation-duration: .7s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+.column-marker {
+    fill: var(--player-color);
+}
