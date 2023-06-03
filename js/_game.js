@@ -1,4 +1,4 @@
-import { game, players, playerScores } from './_global.js';
+import { game, players, playerScores, toggleBoardButtonPermission } from './_global.js';
 import { getActiveMenu } from './_menus.js';
 import {
     clearBoardDisplay,
@@ -104,6 +104,9 @@ function startNextPlayerTurn() {
     }
   
     updateCurrentPlayer(nextPlayer);
+    if (game.isOnline) {
+        toggleBoardButtonPermission();
+    }
     startTurnTimer();
 }
   
@@ -156,6 +159,10 @@ function updateRemainingTimeDisplay() {
     document.querySelector('.current-turn-timer').textContent = `${game.remainingTurnTime}s`;
 }
 
+function isUserCurrentPlayer() {
+    return game.userIsWhichPlayer == game.currentPlayer;
+}
+
 export {
     startGame,
     continueLastGame,
@@ -173,5 +180,6 @@ export {
     startTurnTimer,
     stopTurnTimer,
     incrementTimer,
-    updateRemainingTimeDisplay
+    updateRemainingTimeDisplay,
+    isUserCurrentPlayer
 }

@@ -29,6 +29,10 @@ io.on('connection', socket => {
             io.to(socket.id).emit('full_room');
         }
     });
+
+    socket.on('added_piece', column => {
+        socket.broadcast.emit('added_piece', column);
+    });
 });
 
 function createRoom() {

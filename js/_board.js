@@ -1,5 +1,5 @@
-import { game, board, playerAliases } from './_global';
-import { finishPlayerTurn } from './_game.js';
+import { game, board, playerAliases, socket } from './_global';
+import { finishPlayerTurn, isUserCurrentPlayer } from './_game.js';
 
 function clearBoardDisplay() {
     document.querySelectorAll('.board__piece').forEach(piece => piece.parentNode.removeChild(piece));
@@ -24,6 +24,10 @@ function addPiece(column, player = game.currentPlayer) {
     let piecesWithTheSameColumns = getPiecesByColumn(column);
     
     if (piecesWithTheSameColumns.length < game.maxRows) {
+        if (isUserCurrentPlayer()) {
+            socket.emit('added_piece', column);
+        }
+
         board.pieces.push(
             {
                 player: player, 

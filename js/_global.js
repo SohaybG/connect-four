@@ -29,7 +29,8 @@ export const game = {
   userIsWhichPlayer: 'player_one'
 }
 
-const socket = io('http://localhost:3000');
+export const socket = io('http://localhost:3000');
+
 const quicktest = false;
 
 const searchParams =  new URLSearchParams(window.location.search);
@@ -42,6 +43,26 @@ socket.on('created_room', room => {
   document.querySelector('.create-room-menu-link').textContent = `${window.location.href.split(/[?#]/)[0]}?room=${room}`;
   goToMenu('#create_room_menu');
 });
+socket.on('joined_room', joiningSocketID => {
+  if (socket.id == joiningSocketID) {
+    game.userIsWhichPlayer = 'player_two';
+  }
+});
+socket.on('start_game', () => {
+  game.isOnline = true;
+  toggleBoardButtonPermission();
+  startGame();
+  dismissMenuAndBackdrop(true);
+});
+socket.on('added_piece', column => {
+  addPiece(column);
+});
+
+function toggleBoardButtonPermission() {
+  document.querySelectorAll('.board-button').forEach(button => {
+    button.disabled = game.userIsWhichPlayer != game.currentPlayer;
+  });
+}
 
 if (quicktest) {
   game.timePerTurn = 10,
@@ -174,5 +195,6 @@ export {
   handleKeyPressInModal,
   trapFocusInElement,
   focusFirstFocusableElement,
-  getKeyboardFocusableElements
+  getKeyboardFocusableElements,
+  toggleBoardButtonPermission
 }
