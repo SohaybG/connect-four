@@ -1,6 +1,6 @@
 import '../scss/style.scss';
 import { io } from 'socket.io-client';
-import { startGame, pauseGame, resumeGame, startNextGame, resetGame, isGameRunning } from './_game.js';
+import { startGame, pauseGame, resumeGame, quitGame, startNextGame, resetGame, isGameRunning } from './_game.js';
 import { goToPreviousMenu, goToMenu, dismissMenuAndBackdrop } from './_menus.js';
 import { generatePiecesFromBoard, addPiece } from './_board.js';
 
@@ -57,11 +57,22 @@ socket.on('start_game', () => {
 socket.on('added_piece', column => {
   addPiece(column);
 });
+socket.on('player_disconnect', () => {
+  game.isOnline = false;
+  quitGame();
+  goToMenu('#start_menu');
+});
+socket.on('has_left_room', () => {
+  game.isOnline = false;
+})
 
 function toggleBoardButtonPermission() {
   document.querySelectorAll('.board-button').forEach(button => {
     button.disabled = game.userIsWhichPlayer != game.currentPlayer;
   });
+}
+function leaveOnlineRoom() {
+  socket.emit('leave_room');
 }
 
 if (quicktest) {
@@ -120,9 +131,11 @@ document.querySelectorAll('.js-start-next-game').forEach(element => element.addE
 document.querySelectorAll('.js-start-game').forEach(element => element.addEventListener('click', startGame));
 document.querySelectorAll('.js-pause-game').forEach(element => element.addEventListener('click', pauseGame));
 document.querySelectorAll('.js-resume-game').forEach(element => element.addEventListener('click', resumeGame));
+document.querySelectorAll('.js-quit-game').forEach(element => element.addEventListener('click', quitGame));
 document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', dismissMenuAndBackdrop));
 document.querySelectorAll('.js-go-to-prev-menu').forEach(element => element.addEventListener('click', goToPreviousMenu));
 document.querySelectorAll('.js-create-room').forEach(element => element.addEventListener('click', createOnlineRoom));
+document.querySelectorAll('.js-leave-room').forEach(element => element.addEventListener('click', leaveOnlineRoom));
 
 document.querySelectorAll('.js-force-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
   dismissMenuAndBackdrop(true);

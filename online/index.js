@@ -17,14 +17,17 @@ io.on('connection', socket => {
     });
 
     socket.on('join_room', room => {
-        if (!io.sockets.adapter.rooms.get(room)) {
+        if (!getRoomByID(room)) {
             io.to(socket.id).emit('room_not_found');
             return;
         }
-        if (io.sockets.adapter.rooms.get(room).size < 2) {
+        if (getRoomByID(room).size < 2) {
             socket.join(room);
             io.to(room).emit('joined_room', socket.id);
-            io.to(room).emit('start_game');
+
+            if (getRoomByID(room).size == 2) {
+                io.to(room).emit('start_game');
+            }
         } else {
             io.to(socket.id).emit('full_room');
         }
@@ -32,6 +35,16 @@ io.on('connection', socket => {
 
     socket.on('added_piece', column => {
         socket.broadcast.emit('added_piece', column);
+    });
+
+    socket.on('leave_room', () => {
+        socket.to(getGameRoomFromSocket(socket)).emit('player_disconnect');
+        leaveGameRoom(socket);
+        io.to(socket.id).emit('has_left_room');
+    });
+
+    socket.on('disconnecting', () => {
+        socket.to(getGameRoomFromSocket(socket)).emit('player_disconnect');
     });
 });
 
@@ -45,6 +58,25 @@ function createRoom() {
     return id;
 }
 
+function getRoomByID(id) {
+    return io.sockets.adapter.rooms.get(id);
+}
+
 function createRandomID() {
     return crypto.randomBytes(4).toString('hex');
+}
+
+function leaveGameRoom(socket) {
+    let room = getGameRoomFromSocket(socket);
+    if (room) socket.leave(room);
+};
+
+function getGameRoomFromSocket(socket) {
+    let gameRoom = false;
+    for (let room of socket.rooms) {
+        if (room != socket.id) {
+            gameRoom = room;
+        }
+    }
+    return gameRoom;
 }

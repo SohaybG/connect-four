@@ -41,10 +41,16 @@ function resetGame() {
     updateCurrentPlayer(players[0]);
     startGame();
 }
+function quitGame() {
+    resetGameDataAndUI();
+    resetScores();
+    updateCurrentPlayer(players[0]);
+};
 function isGameRunning() {
     return !game.isPaused && !getActiveMenu();
 }
 function resetGameDataAndUI() {
+    game.userIsWhichPlayer = players[0];
     stopTurnTimer();
     clearBoardData();
     clearBoardDisplay();
@@ -53,6 +59,13 @@ function resetGameDataAndUI() {
     document.querySelector('.tie-window').classList.add('hidden');
     document.querySelector('.current-turn-window').classList.remove('hidden');
     document.querySelector('body').style.setProperty('--winner-color', ``);
+}
+function resetScores() {
+    playerScores.player_one = 0;
+    playerScores.player_two = 0;
+    document.querySelectorAll('.player-score').forEach(scoreNode => {
+        scoreNode.textContent = 0;
+    });
 }
 function checkForVictory() {
     let currentPlayerPieces = getCurrentPlayerPieces();
@@ -168,6 +181,7 @@ export {
     continueLastGame,
     pauseGame,
     resumeGame,
+    quitGame,
     startNextGame,
     resetGame,
     isGameRunning,

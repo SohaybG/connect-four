@@ -24,7 +24,7 @@ function addPiece(column, player = game.currentPlayer) {
     let piecesWithTheSameColumns = getPiecesByColumn(column);
     
     if (piecesWithTheSameColumns.length < game.maxRows) {
-        if (isUserCurrentPlayer()) {
+        if (isUserCurrentPlayer() && game.isOnline) {
             socket.emit('added_piece', column);
         }
 
