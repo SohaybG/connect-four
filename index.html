@@ -153,11 +153,12 @@
           <span>Play vs player</span>
           <img class="menu__button-icon" src="./assets/images/player-vs-player.svg" alt="" role="presentation">
         </button>
+        <a href="#online_menu" class="menu__button js-switch-menu">Online game</a>
         <a href="#rules_menu" class="menu__button js-switch-menu">Game rules</a>
       </div>
     </div>
 
-    <div id="rules_menu" class="menu rules-menu">
+    <div id="rules_menu" class="menu rules-menu text-menu">
       <div class="menu__container">
         <h2 class="menu__title">Rules</h2>
         
@@ -183,6 +184,27 @@
         <button class="menu__button js-dismiss-parent-menu js-reset-game">Restart</button>
         <a href="#start_menu" class="menu__button menu__button--secondary js-quit-game js-switch-menu" data-update-backdrop="true">Quit game</a>
       </div>
+    </div>
+
+    <div id="online_menu" class="menu online-menu">
+      <div class="menu__container">
+        <h2>Online</h2>
+        <button class="menu__button js-create-room">Create game</button>
+      </div>
+
+      <a href="#start_menu" class="menu__check-btn js-go-to-prev-menu" aria-label="Close online menu"></a>
+    </div>
+
+    <div id="create_room_menu" class="menu create-room-menu text-menu">
+      <div class="menu__container">
+        <h2>Create room</h2>
+        <p>Your room ID is <strong class="create-room-menu-id"></strong></p>
+        <p>Send the following link to your friend so they may join you</p>
+        <p><button class="create-room-menu-link copy-on-click" aria-label="Copy link to clipboard"></button></p>
+        <p>The game will start once they have joined</p>
+        <p>Leaving this menu will cancel the room</p>
+      </div>
+      <a href="#online_menu" class="menu__check-btn js-go-to-prev-menu" aria-label="Return to online menu"></a>
     </div>
   </section>
   

@@ -26,7 +26,7 @@ function goToMenu(targetMenuID, backdropNewType = false) {
     if (previouslyOpenedMenu && previouslyOpenedMenu.menuId == menu.id) {
         game.menuHistory.pop();
     } else if (getActiveMenu() && previouslyOpenedMenu != menu) {
-        game.menuHistory.push({menuId: getActiveMenu().id, openedBy: this.nodeType ? this : null});
+        game.menuHistory.push({menuId: getActiveMenu().id, openedBy: this && this.nodeType ? this : null});
     }
   
     hideActiveMenu();

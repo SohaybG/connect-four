@@ -1,4 +1,5 @@
 import '../scss/style.scss';
+import { io } from 'socket.io-client';
 import { startGame, pauseGame, resumeGame, startNextGame, resetGame, isGameRunning } from './_game.js';
 import { goToPreviousMenu, goToMenu, dismissMenuAndBackdrop } from './_menus.js';
 import { generatePiecesFromBoard, addPiece } from './_board.js';
@@ -23,10 +24,24 @@ export const game = {
   maxRows: 6,
   timePerTurn: 30,
   isPaused: false,
-  menuHistory: []
+  menuHistory: [],
+  isOnline: false,
+  userIsWhichPlayer: 'player_one'
 }
 
+const socket = io('http://localhost:3000');
 const quicktest = false;
+
+const searchParams =  new URLSearchParams(window.location.search);
+if (searchParams.get('room')) {
+  socket.emit('join_room', searchParams.get('room'));
+}
+
+socket.on('created_room', room => {
+  document.querySelector('.create-room-menu-id').textContent = room;
+  document.querySelector('.create-room-menu-link').textContent = `${window.location.href.split(/[?#]/)[0]}?room=${room}`;
+  goToMenu('#create_room_menu');
+});
 
 if (quicktest) {
   game.timePerTurn = 10,
@@ -66,6 +81,12 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('copy-on-click')) {
+    copyContent(e.target.textContent);
+  }
+});
+
 document.querySelectorAll('.board-button').forEach(button => {
   button.addEventListener('click', function() {
       let column = this.dataset.column;
@@ -80,6 +101,7 @@ document.querySelectorAll('.js-pause-game').forEach(element => element.addEventL
 document.querySelectorAll('.js-resume-game').forEach(element => element.addEventListener('click', resumeGame));
 document.querySelectorAll('.js-dismiss-parent-menu').forEach(element => element.addEventListener('click', dismissMenuAndBackdrop));
 document.querySelectorAll('.js-go-to-prev-menu').forEach(element => element.addEventListener('click', goToPreviousMenu));
+document.querySelectorAll('.js-create-room').forEach(element => element.addEventListener('click', createOnlineRoom));
 
 document.querySelectorAll('.js-force-dismiss-parent-menu').forEach(element => element.addEventListener('click', function() {
   dismissMenuAndBackdrop(true);
@@ -91,6 +113,10 @@ document.querySelectorAll('.js-switch-menu').forEach(element => element.addEvent
 }));
 
 document.querySelectorAll('.js-trap-focus, .menu').forEach(element => element.addEventListener('keydown', handleKeyPressInModal));
+
+function createOnlineRoom() {
+  socket.emit('create_room');
+}
 
 function handleKeyPressInModal(e) {
   if (e.key == 'Tab') {
@@ -134,6 +160,14 @@ function getKeyboardFocusableElements(element = document) {
   ].filter(
     el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden')
   )
+}
+
+async function copyContent(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
 }
 
 export {

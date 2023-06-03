@@ -31,9 +31,10 @@ body {
     --shadow-y-offset: 10px; 
     --bottom-shadow: 0px var(--shadow-y-offset) 0px var(--shadow-color);
     --border: 3px solid #000000;
+    --font-family: 'SpaceGrotesk', sans-serif;
     margin: 0;
     background-color: var(--background-color);
-    font-family: 'SpaceGrotesk', sans-serif;
+    font-family: var(--font-family);
     font-weight: 500;
     line-height: 1.3125;
     display: flex;
@@ -73,6 +74,11 @@ p {
 a {
     color: currentColor;
     text-decoration: none;
+}
+button {
+    padding: 0;
+    font-family: var(--font-family);
+    font-size: 1em;
 }
 ul, ol {
     list-style: none;
@@ -144,4 +150,8 @@ button {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.copy-on-click {
+    color: var(--color-three);
 }
