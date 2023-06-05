@@ -63,6 +63,12 @@ socket.on('player_disconnect', () => {
 socket.on('has_left_room', () => {
   game.isOnline = false;
 })
+socket.on('full_room', () => {
+  showAlert('Room is full', 'The room you tried to join is already full');
+});
+// socket.on('room_not_found', () => {
+//   showAlert('Room not found', 'The room you tried to join doesn\'t or no longer exists');
+// });
 
 function toggleBoardButtonPermission() {
   document.querySelectorAll('.board-button').forEach(button => {
