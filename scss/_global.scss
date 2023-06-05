@@ -1,13 +1,3 @@
-@font-face {
-    font-family: "SpaceGrotesk";
-    font-weight: 700;
-    src: url('./assets/fonts/static/SpaceGrotesk-Bold.ttf') format("truetype");
-}
-@font-face {
-    font-family: "SpaceGrotesk";
-    font-weight: 500;
-    src: url('./assets/fonts/static/SpaceGrotesk-Medium.ttf') format("truetype");
-}
 *, *:before, *:after {
     box-sizing: border-box;
 }
@@ -36,7 +26,7 @@ body {
     --bottom-shadow: 0px var(--shadow-y-offset) 0px var(--shadow-color);
 
     --border: 3px solid #000000;
-    --font-family: 'SpaceGrotesk', sans-serif;
+    --font-family: 'Space Grotesk', sans-serif;
     margin: 0;
     background-color: var(--background-color);
     font-family: var(--font-family);
