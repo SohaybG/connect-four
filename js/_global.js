@@ -39,9 +39,7 @@ if (searchParams.get('room')) {
 }
 
 socket.on('created_room', room => {
-  document.querySelector('.create-room-menu-id').textContent = room;
   document.querySelector('.create-room-menu-link').textContent = `${window.location.href.split(/[?#]/)[0]}?room=${room}`;
-  goToMenu('#create_room_menu');
 });
 socket.on('joined_room', joiningSocketID => {
   if (socket.id == joiningSocketID) {
@@ -204,6 +202,12 @@ function getKeyboardFocusableElements(element = document) {
   ].filter(
     el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden')
   )
+}
+
+function showAlert(title = '', content = '') {
+  document.querySelector('.alert-menu__title').textContent = title;
+  document.querySelector('.alert-menu__content').textContent = content;
+  goToMenu('#alert_menu');
 }
 
 async function copyContent(text) {

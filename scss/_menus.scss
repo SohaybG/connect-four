@@ -26,9 +26,10 @@ background-color: rgba(0, 0, 0, .5);
     border-radius: 40px;
     box-shadow: var(--bottom-shadow);
     color: #575757;
-}
-.menu:not(.menu--active) {
-    display: none;
+
+    &:not(.menu--active) {
+        display: none;
+    }
 }
 .menu__container {
     overflow: auto;
@@ -52,26 +53,38 @@ background-color: rgba(0, 0, 0, .5);
     line-height: 1.25;
     text-transform: uppercase;
     text-align: left;
-}
-.menu__button:not(:last-child) {
-    margin-bottom: 1.875rem;
-}
-.menu__button:hover, .menu__button:focus {
-    --shadow-color: var(--color-two);
-    border-color: var(--color-two);
-}
-.menu__button:active {
-    transform: translateY(5px);
-    box-shadow: 0px 5px 0px var(--shadow-color);
-}
-.menu__button--primary {
-    background-color: var(--color-four);
-}
-.menu__button--secondary {
-    background-color: var(--color-three);
-}
-.menu__button-icon {
-    margin: -7px 0px;
+
+    &:not(:last-child) {
+        margin-bottom: 1.875rem;
+    }
+    &:hover, &:focus {
+        --shadow-color: var(--color-two);
+        border-color: var(--color-two);
+    }
+    &:active {
+        transform: translateY(5px);
+        box-shadow: 0px 5px 0px var(--shadow-color);
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
+    &--primary {
+        background-color: var(--color-four);
+    }
+    &--secondary {
+        background-color: var(--color-three);
+    }
+    &--small {
+        font-size: 1.125rem;
+        width: fit-content;
+    }
+    &--centered {
+        margin-inline: auto;
+    }
+    &-icon {
+        margin: -7px 0px;
+    }
 }
 .menu__check-btn {
     position: absolute;
@@ -120,4 +133,7 @@ background-color: rgba(0, 0, 0, .5);
 .text-menu {
     background-color: #FFF;
     padding: 1.875rem 2.125rem 3.375rem;
+}
+.alert-menu__content {
+    margin-bottom: 1.5rem;
 }

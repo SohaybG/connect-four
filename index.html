@@ -153,7 +153,7 @@
           <span>Play vs player</span>
           <img class="menu__button-icon" src="./assets/images/player-vs-player.svg" alt="" role="presentation">
         </button>
-        <a href="#online_menu" class="menu__button js-switch-menu">Online game</a>
+        <a href="#create_room_menu" class="menu__button js-switch-menu js-create-room">Online game</a>
         <a href="#rules_menu" class="menu__button js-switch-menu">Game rules</a>
       </div>
     </div>
@@ -186,25 +186,24 @@
       </div>
     </div>
 
-    <div id="online_menu" class="menu online-menu">
-      <div class="menu__container">
-        <h2>Online</h2>
-        <button class="menu__button js-create-room">Create game</button>
-      </div>
-
-      <a href="#start_menu" class="menu__check-btn js-go-to-prev-menu" aria-label="Close online menu"></a>
-    </div>
-
     <div id="create_room_menu" class="menu create-room-menu text-menu">
       <div class="menu__container">
         <h2>Create room</h2>
-        <p>Your room ID is <strong class="create-room-menu-id"></strong></p>
+        <p>Your room has been created!</p>
         <p>Send the following link to your friend so they may join you</p>
         <p><button class="create-room-menu-link copy-on-click" aria-label="Copy link to clipboard"></button></p>
         <p>The game will start once they have joined</p>
         <p>Leaving this menu will cancel the room</p>
+        <a href="#start_menu" class="menu__button menu__button--secondary menu__button--small menu__button--centered js-go-to-prev-menu js-leave-room">Cancel</a>
       </div>
-      <a href="#online_menu" class="menu__check-btn js-go-to-prev-menu js-leave-room" aria-label="Return to online menu"></a>
+    </div>
+
+    <div id="alert_menu" class="menu alert-menu text-menu">
+      <div class="menu__container">
+        <h2 class="alert-menu__title hide-empty"></h2>
+        <div class="alert-menu__content hide-empty"></div>
+        <a href="#start_menu" class="menu__button menu__button--secondary menu__button--small menu__button--centered js-go-to-prev-menu">OK</a>
+      </div>
     </div>
   </section>
   
