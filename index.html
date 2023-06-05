@@ -136,11 +136,25 @@
       
     <div class="game-info-window winner-window hidden">
       <p class="game-info-window__text winner-window__text"><span data-update-player-alias>Player 1</span><br> <strong>wins</strong></p>
+      
+      <div class="game-info-window-waitlist hidden" show-online>
+        <p class="game-info-window-waitlist__title">Waiting for</p>
+        <span class="game-info-window-waitlist__name btn player_one-color" data-player="player_one" data-alias-player_one>Player 1</span>
+        <span class="game-info-window-waitlist__name btn player_two-color" data-player="player_two" data-alias-player_two>Player 2</span>
+      </div>
+      
       <button class="btn js-start-next-game">Play again</button>
     </div>
 
     <div class="game-info-window tie-window hidden">
       <p class="game-info-window__text tie-window__text"><strong>Tie</strong></p>
+
+      <div class="game-info-window-waitlist hidden" show-online>
+        <p class="game-info-window-waitlist__title">Waiting for</p>
+        <span class="game-info-window-waitlist__name btn player_one-color" data-player="player_one" data-alias-player_one>Player 1</span>
+        <span class="game-info-window-waitlist__name btn player_two-color" data-player="player_two" data-alias-player_two>Player 2</span>
+      </div>
+      
       <button class="btn js-start-next-game">Play again</button>
     </div>
   </footer>

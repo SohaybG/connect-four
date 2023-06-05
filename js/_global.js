@@ -53,6 +53,9 @@ socket.on('start_game', () => {
   startGame();
   dismissMenuAndBackdrop(true);
 });
+socket.on('start_next_game', () => {
+  startNextGame();
+});
 socket.on('added_piece', column => {
   addPiece(column);
 });
@@ -66,6 +69,9 @@ socket.on('full_room', () => {
 // socket.on('room_not_found', () => {
 //   showAlert('Room not found', 'The room you tried to join doesn\'t or no longer exists');
 // });
+socket.on('next_game_request', () => {
+  setPlayerReadyStatus(getOpponent(), true);
+});
 
 function toggleBoardButtonPermission() {
   document.querySelectorAll('.board-button').forEach(button => {
@@ -85,6 +91,14 @@ function changeGameOnlineStatus(isOnline) {
   });
   document.querySelectorAll('[show-online]').forEach(element => {
     element.classList.toggle('hidden', !isOnline);
+  });
+}
+function getOpponent(referencePlayer = game.userIsWhichPlayer) {
+  return players.filter(player => player != referencePlayer)[0];
+}
+function setPlayerReadyStatus(player, isReady) {
+  document.querySelectorAll(`.game-info-window-waitlist__name[data-player="${player}"]`).forEach(nameNode => {
+    nameNode.classList.toggle('active', isReady);
   });
 }
 
@@ -140,7 +154,14 @@ document.querySelectorAll('.board-button').forEach(button => {
 });
 
 document.querySelectorAll('.js-reset-game').forEach(element => element.addEventListener('click', resetGame));
-document.querySelectorAll('.js-start-next-game').forEach(element => element.addEventListener('click', startNextGame));
+document.querySelectorAll('.js-start-next-game').forEach(element => element.addEventListener('click', () => {
+  if (game.isOnline) {
+    socket.emit('next_game_request');
+    setPlayerReadyStatus(game.userIsWhichPlayer, true);
+  } else {
+    startNextGame();
+  }
+}));
 document.querySelectorAll('.js-start-game').forEach(element => element.addEventListener('click', startGame));
 document.querySelectorAll('.js-pause-game').forEach(element => element.addEventListener('click', pauseGame));
 document.querySelectorAll('.js-resume-game').forEach(element => element.addEventListener('click', resumeGame));
@@ -229,5 +250,6 @@ export {
   focusFirstFocusableElement,
   getKeyboardFocusableElements,
   toggleBoardButtonPermission,
-  leaveOnlineRoom
+  leaveOnlineRoom,
+  setPlayerReadyStatus
 }

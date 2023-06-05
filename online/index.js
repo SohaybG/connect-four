@@ -9,6 +9,7 @@ const rooms = {};
 
 io.on('connection', socket => {
     console.log(socket.id);
+    socket.custom_data = {};
 
     socket.on('create_room', () => {
         let newRoom = createRoom();
@@ -37,8 +38,22 @@ io.on('connection', socket => {
         socket.broadcast.emit('added_piece', column);
     });
 
+    socket.on('next_game_request', () => {
+        let opponent = getOpponent(socket);
+        socket.custom_data.is_ready = true;
+
+        if (opponent.custom_data.is_ready) {
+            socket.custom_data.is_ready = false;
+            opponent.custom_data.is_ready = false;
+            io.in(getGameRoomIDFromSocket(socket)).emit('start_next_game');
+        } else {
+            socket.to(getGameRoomIDFromSocket(socket)).emit('next_game_request', socket.id);
+        }
+    });
+
     socket.on('leave_room', () => {
         socket.to(getGameRoomIDFromSocket(socket)).emit('player_disconnect');
+        socket.custom_data.is_ready = false;
         leaveGameRoom(socket);
     });
 
@@ -82,4 +97,15 @@ function getGameRoomIDFromSocket(socket) {
         }
     }
     return gameRoom;
+}
+
+function getOpponent(socket) {
+    let opponent;
+    let room = getRoomFromSocket(socket);
+    for (let playerID of room) {
+        if (socket.id != playerID) {
+            opponent = playerID;
+        }
+    }
+    return io.sockets.sockets.get(opponent);
 }

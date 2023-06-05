@@ -54,9 +54,30 @@
     margin-top: -30px;
     margin-bottom: .875rem;
 }
-  .player-avatar--player_two {
+.player-avatar--player_two {
     transform: scaleX(-1);
 }
-  .player-avatar-face {
+.player-avatar-face {
     fill: var(--player-color);
+}
+.game-info-window-waitlist {
+    margin-block: 1.5rem 2rem;
+
+    &__title {
+        margin-bottom: .5rem;
+    }
+    &__name {
+        margin-inline: .25rem;
+        border: 2px solid var(--player-color, var(--color-two));
+        
+        &, &:hover, &:active, &:focus {
+            background-color: transparent;
+            color: var(--text-color);
+        }
+        &.active {
+            &, &:hover, &:active, &:focus {
+                background-color: var(--player-color, var(--color-two));
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import { game, players, playerAliases, playerScores, toggleBoardButtonPermission, leaveOnlineRoom } from './_global.js';
+import { game, players, playerAliases, playerScores, toggleBoardButtonPermission, leaveOnlineRoom, setPlayerReadyStatus } from './_global.js';
 import { getActiveMenu } from './_menus.js';
 import {
     clearBoardDisplay,
@@ -59,6 +59,8 @@ function resetGameDataAndUI() {
             document.querySelector(`.game-info-window [data-alias-${player}]`).textContent = playerAliases[player];
         });
     }
+    setPlayerReadyStatus(players[0], false);
+    setPlayerReadyStatus(players[1], false);
     stopTurnTimer();
     clearBoardData();
     clearBoardDisplay();
