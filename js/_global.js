@@ -47,6 +47,7 @@ socket.on('joined_room', (joiningSocketID, position) => {
   }
 });
 socket.on('start_game', () => {
+  document.querySelector(`.game-info-window [data-alias-${game.userIsWhichPlayer}]`).textContent = `${playerAliases[game.userIsWhichPlayer]} (You)`;
   changeGameOnlineStatus(true);
   toggleBoardButtonPermission();
   startGame();
@@ -56,13 +57,9 @@ socket.on('added_piece', column => {
   addPiece(column);
 });
 socket.on('player_disconnect', () => {
-  game.isOnline = false;
   quitGame();
   goToMenu('#start_menu');
 });
-socket.on('has_left_room', () => {
-  game.isOnline = false;
-})
 socket.on('full_room', () => {
   showAlert('Room is full', 'The room you tried to join is already full');
 });
@@ -76,6 +73,8 @@ function toggleBoardButtonPermission() {
   });
 }
 function leaveOnlineRoom() {
+  changeGameOnlineStatus(false);
+  game.userIsWhichPlayer = players[0];
   socket.emit('leave_room');
 }
 function changeGameOnlineStatus(isOnline) {
@@ -229,5 +228,6 @@ export {
   trapFocusInElement,
   focusFirstFocusableElement,
   getKeyboardFocusableElements,
-  toggleBoardButtonPermission
+  toggleBoardButtonPermission,
+  leaveOnlineRoom
 }

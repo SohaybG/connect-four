@@ -40,7 +40,6 @@ io.on('connection', socket => {
     socket.on('leave_room', () => {
         socket.to(getGameRoomIDFromSocket(socket)).emit('player_disconnect');
         leaveGameRoom(socket);
-        io.to(socket.id).emit('has_left_room');
     });
 
     socket.on('disconnecting', () => {

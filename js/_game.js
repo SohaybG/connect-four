@@ -1,4 +1,4 @@
-import { game, players, playerScores, toggleBoardButtonPermission } from './_global.js';
+import { game, players, playerAliases, playerScores, toggleBoardButtonPermission, leaveOnlineRoom } from './_global.js';
 import { getActiveMenu } from './_menus.js';
 import {
     clearBoardDisplay,
@@ -44,15 +44,21 @@ function resetGame() {
     startGame();
 }
 function quitGame() {
+    if (game.isOnline) leaveOnlineRoom();
     resetGameDataAndUI();
     resetScores();
+    game.userIsWhichPlayer = players[0];
     updateCurrentPlayer(players[0]);
 };
 function isGameRunning() {
     return !game.isPaused && !getActiveMenu();
 }
 function resetGameDataAndUI() {
-    game.userIsWhichPlayer = players[0];
+    if (!game.isOnline) {
+        players.forEach(player => {
+            document.querySelector(`.game-info-window [data-alias-${player}]`).textContent = playerAliases[player];
+        });
+    }
     stopTurnTimer();
     clearBoardData();
     clearBoardDisplay();
