@@ -23,7 +23,7 @@ io.on('connection', socket => {
         }
         if (getRoomByID(room).size < 2) {
             socket.join(room);
-            io.to(room).emit('joined_room', socket.id);
+            io.to(room).emit('joined_room', socket.id, getRoomByID(room).size - 1);
 
             if (getRoomByID(room).size == 2) {
                 io.to(room).emit('start_game');
@@ -38,20 +38,20 @@ io.on('connection', socket => {
     });
 
     socket.on('leave_room', () => {
-        socket.to(getGameRoomFromSocket(socket)).emit('player_disconnect');
+        socket.to(getGameRoomIDFromSocket(socket)).emit('player_disconnect');
         leaveGameRoom(socket);
         io.to(socket.id).emit('has_left_room');
     });
 
     socket.on('disconnecting', () => {
-        socket.to(getGameRoomFromSocket(socket)).emit('player_disconnect');
+        socket.to(getGameRoomIDFromSocket(socket)).emit('player_disconnect');
     });
 });
 
 function createRoom() {
     let id = createRandomID();
 
-    while(rooms[id]) {
+    while(getRoomByID(id)) {
         id = createRandomID();
     }
 
@@ -67,11 +67,15 @@ function createRandomID() {
 }
 
 function leaveGameRoom(socket) {
-    let room = getGameRoomFromSocket(socket);
+    let room = getGameRoomIDFromSocket(socket);
     if (room) socket.leave(room);
 };
 
-function getGameRoomFromSocket(socket) {
+function getRoomFromSocket(socket) {
+    return getRoomByID(getGameRoomIDFromSocket(socket));
+}
+
+function getGameRoomIDFromSocket(socket) {
     let gameRoom = false;
     for (let room of socket.rooms) {
         if (room != socket.id) {

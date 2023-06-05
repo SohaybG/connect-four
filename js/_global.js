@@ -41,9 +41,9 @@ if (searchParams.get('room')) {
 socket.on('created_room', room => {
   document.querySelector('.create-room-menu-link').textContent = `${window.location.href.split(/[?#]/)[0]}?room=${room}`;
 });
-socket.on('joined_room', joiningSocketID => {
+socket.on('joined_room', (joiningSocketID, position) => {
   if (socket.id == joiningSocketID) {
-    game.userIsWhichPlayer = 'player_two';
+    game.userIsWhichPlayer = players[position];
   }
 });
 socket.on('start_game', () => {
