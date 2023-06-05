@@ -49,7 +49,7 @@ socket.on('joined_room', joiningSocketID => {
   }
 });
 socket.on('start_game', () => {
-  game.isOnline = true;
+  changeGameOnlineStatus(true);
   toggleBoardButtonPermission();
   startGame();
   dismissMenuAndBackdrop(true);
@@ -73,6 +73,16 @@ function toggleBoardButtonPermission() {
 }
 function leaveOnlineRoom() {
   socket.emit('leave_room');
+}
+function changeGameOnlineStatus(isOnline) {
+  game.isOnline = isOnline;
+  
+  document.querySelectorAll('[hide-online]').forEach(element => {
+    element.classList.toggle('hidden', isOnline);
+  });
+  document.querySelectorAll('[show-online]').forEach(element => {
+    element.classList.toggle('hidden', !isOnline);
+  });
 }
 
 if (quicktest) {

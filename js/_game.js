@@ -24,10 +24,12 @@ function continueLastGame() {
     startGame();
 }
 function pauseGame() {
+    if (game.isOnline) return;
     game.isPaused = true;
     stopTurnTimer();
 }
 function resumeGame() {
+    if (game.isOnline) return;
     startTurnTimer();
     game.isPaused = false;
 }

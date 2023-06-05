@@ -18,7 +18,7 @@
       <img class="logo" src="./assets/images/logo.svg" alt="Game logo">
       
       <div class="header__right">
-        <button class="btn js-reset-game">Restart</button>
+        <button class="btn js-reset-game" hide-online>Restart</button>
       </div>
     </div>
   </header>
@@ -179,9 +179,9 @@
 
     <div id="pause_menu" class="menu pause-menu">
       <div class="menu__container">
-        <h2>Pause</h2>
+        <h2><span hide-online>Pause</span><span class="hidden" show-online>Menu</span></h2>
         <button class="menu__button js-dismiss-parent-menu js-resume-game">Continue game</button>
-        <button class="menu__button js-dismiss-parent-menu js-reset-game">Restart</button>
+        <button class="menu__button js-dismiss-parent-menu js-reset-game" hide-online>Restart</button>
         <a href="#start_menu" class="menu__button menu__button--secondary js-quit-game js-switch-menu js-leave-room" data-update-backdrop="true">Quit game</a>
       </div>
     </div>
