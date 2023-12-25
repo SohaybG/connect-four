@@ -29,7 +29,7 @@ export const game = {
   userIsWhichPlayer: 'player_one'
 }
 
-export const socket = io('http://localhost:3000');
+export const socket = io(process.env.BACKEND_URL);
 
 const quicktest = false;
 
