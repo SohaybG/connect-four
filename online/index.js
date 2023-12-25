@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const io = require('socket.io')(3000, {
+const io = require('socket.io')(process.env.PORT, {
     cors: {
         origin: ['http://localhost:5173']
     }
