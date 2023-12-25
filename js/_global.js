@@ -29,7 +29,7 @@ export const game = {
   userIsWhichPlayer: 'player_one'
 }
 
-export const socket = io(process.env.BACKEND_URL);
+export const socket = io('https://connect-four-nv8g.onrender.com/');
 
 const quicktest = false;
 
