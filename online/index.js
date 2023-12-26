@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const io = require('socket.io')(process.env.PORT, {
     cors: {
-        origin: ['http://localhost:5173', 'https://connect-four-front.onrender.com/']
+        origin: ['http://localhost:5173', 'https://connect-four-front.onrender.com']
     }
 });
 
