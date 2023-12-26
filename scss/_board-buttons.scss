@@ -1,6 +1,6 @@
 .board-buttons {
     position: absolute;
-    top: 0;
+    top: -4.75rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     gap: 12px;
-    height: 100%;
+    height: calc(100% + .75rem);
 }
 .board-button {
     position: relative;
