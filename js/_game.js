@@ -152,6 +152,10 @@ function finishPlayerTurn() {
 function alternateStartingPlayer() {
     players.push(players.splice(0, 1)[0]);
     updateCurrentPlayer(players[0]);
+
+    if (game.isOnline) {
+        toggleBoardButtonPermission();
+    }
 }
   
 function startTurnTimer() {
